@@ -58,7 +58,6 @@ public class TransactionService {
 
         Date now = new Date();
 
-
         double rate = getUpdatedBitCoinRate();
         double fiat_amount = rate * amount;
         double commission_amount = 0;

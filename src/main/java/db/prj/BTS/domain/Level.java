@@ -18,6 +18,8 @@ public class Level {
     private  double percentage;
 
 
+
+
     public long getId() {
         return id;
     }

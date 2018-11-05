@@ -13,4 +13,5 @@ public interface ClientRepository  extends CrudRepository<Client, String> ,
         JpaSpecificationExecutor {
    public List<Client> getClientByTrader(Trader trader);
    public List<Client> findByClientId(Integer id);
+
 }

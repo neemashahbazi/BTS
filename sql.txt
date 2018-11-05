@@ -12,11 +12,23 @@ CREATE  TABLE db_bts.u_users (
 
   Drop Table db_bts.u_users;
 
-  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','$2a$04$Oo0LB/rtiBUb161fFYJo0ObSn7Bn/5y2RX/.vYIdi3uM4u0BBmTw6', true);
-    INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader2','trader', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','$2a$04$Oo0LB/rtiBUb161fFYJo0ObSn7Bn/5y2RX/.vYIdi3uM4u0BBmTw6', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader1','$2a$04$31CqIRa7vc0jtg9dFW9cXORIs/aaY97JDzl7xVb57BpEOgUmJiAVe', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader2','$2a$04$BdpFVSOhaSOWZR2MZzB.LOvzAkQGk6pSX8TiCbuL2nBq466zQEU/2', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader3','$2a$04$SiPK8zWexvnRtFL193SHOOHx6cujXvodpHBbAof8CqudgIdxy8L5G', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader4','$2a$04$ozz6pYepnYeaokpg70Jhr.KtuAZa5wuZWb/h3F2.eDjcEW/Uqu1Zy', true);
+
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client','$2a$04$4WEWaIgugxe2PWY0yo9Wv.Fz4IaAgkI8hz7ne2.0y2ZRGh7Bj4iWu', true);
-  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client2','client', true);
-  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('manager','manager', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client1','$2a$04$31CqIRa7vc0jtg9dFW9cXORIs/aaY97JDzl7xVb57BpEOgUmJiAVe', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client2','$2a$04$eV7mjJfOfZJ9/4aT674J3OGG.ckAuWgepxSI9q5SHw1rEQ6GGDsQa', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client3','$2a$04$SiPK8zWexvnRtFL193SHOOHx6cujXvodpHBbAof8CqudgIdxy8L5G', true);
+ INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client4','$2a$04$yF0HaBvpUum8fD1uN/kQEelxQIxlqcFLR/JWQcQJkrlX2rfagYIie', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client5','$2a$04$31CqIRa7vc0jtg9dFW9cXORIs/aaY97JDzl7xVb57BpEOgUmJiAVe', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client6','$2a$04$eV7mjJfOfZJ9/4aT674J3OGG.ckAuWgepxSI9q5SHw1rEQ6GGDsQa', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client7','$2a$04$SiPK8zWexvnRtFL193SHOOHx6cujXvodpHBbAof8CqudgIdxy8L5G', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client8','$2a$04$yF0HaBvpUum8fD1uN/kQEelxQIxlqcFLR/JWQcQJkrlX2rfagYIie', true);
+
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('manager','$2a$04$VZAwYUQTV5LmN29j7jGymOX4KsK0yhJuwYBbSbog9JKDgL7BTCopO', true);
 
   CREATE TABLE db_bts.u_roles (
     id int(11) NOT NULL AUTO_INCREMENT,
@@ -32,9 +44,19 @@ CREATE  TABLE db_bts.u_users (
 
 
 INSERT INTO db_bts.u_roles(username, role) VALUES ('trader', 'TRADER');
-INSERT INTO db_bts.u_roles (username, role) VALUES ('client', 'CLIENT');
+INSERT INTO db_bts.u_roles(username, role) VALUES ('trader1', 'TRADER');
 INSERT INTO db_bts.u_roles(username, role) VALUES ('trader2', 'TRADER');
+INSERT INTO db_bts.u_roles(username, role) VALUES ('trader3', 'TRADER');
+INSERT INTO db_bts.u_roles(username, role) VALUES ('trader4', 'TRADER');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client1', 'CLIENT');
 INSERT INTO db_bts.u_roles (username, role) VALUES ('client2', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client3', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client4', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client5', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client6', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client7', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client8', 'CLIENT');
 INSERT INTO db_bts.u_roles (username, role) VALUES ('manager', 'MANAGER');
 
 
@@ -49,7 +71,11 @@ CREATE TABLE db_bts.u_traders (
 
 
 INSERT INTO db_bts.u_traders(username) VALUES ('trader');
+INSERT INTO db_bts.u_traders(username) VALUES ('trader1');
 INSERT INTO db_bts.u_traders(username) VALUES ('trader2');
+INSERT INTO db_bts.u_traders(username) VALUES ('trader3');
+INSERT INTO db_bts.u_traders(username) VALUES ('trader4');
+
 
 
   CREATE TABLE db_bts.u_level (
@@ -88,9 +114,32 @@ CREATE TABLE db_bts.u_clients (
      CONSTRAINT fk_level FOREIGN KEY (level) REFERENCES db_bts.u_level (id));
 
      INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
-     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com',2,12000001,120000000,'trader','19251 preston rd','dallas','texas','75252');
-          INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
-          VALUES ('client2','Nima','shahbazi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader2','19251 preston rd','dallas','texas','75252');
+     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com',2,30,5000,'trader','19251 preston rd','dallas','texas','75252');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client1','Nima','Shahbazi','34543534','345345','n.shahbazi@gmail.com',1,40,6000,'trader','19251 preston rd','dallas','texas','75252');
+
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client2','Jim','Nistor','34534543','7777775','j.nistor@gmail.com',2,60,5000,'trader3','6754 preston rd','dallas','texas','75252');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client3','emily','bryan','345612','12944434','e.bryan@gmail.com',2,10,1000,'trader','8484 Loyd dr','frisco','texas','75252');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client4','Tom','smith','345345','45645645','t.smit@gmail.com',1,50,10000,'trader1','1978 frankford rd','dallas','texas','75252');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client5','Martin','King','6544334','5337866','m.king@gmail.com',2,60,1200,'trader2','8767 waterview rd','richardson','texas','75453');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client6','Sara','Lee','423442157','5675675','s.lee@gmail.com',1,150,3500,'trader3','45678 coit rd','dallas','texas','75453');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client7','John','Richardson','34534','345345','j.richardson@gmail.com',2,40,5000,'trader4','3456 Franklyn rd','dallas','texas','76454');
+
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+      VALUES ('client8','Mary','Richardson','3453453','345345','m.richardson@gmail.com',1,50,13000,'trader4','3456 Franklyn rd','dallas','texas','76454');
 
   Drop Table db_bts.u_clients;
 

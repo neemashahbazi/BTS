@@ -2,14 +2,19 @@ package db.prj.BTS.service;
 
 import db.prj.BTS.domain.Client;
 
+import db.prj.BTS.domain.Level;
 import db.prj.BTS.repository.ClientRepository;
 
+import db.prj.BTS.repository.LevelRepository;
+import db.prj.BTS.repository.TransactionRepository;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +25,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 /*This class handle all business related to client service*/
 @Service
@@ -32,6 +37,13 @@ public class ClientService {
 
     @Autowired
     ClientRepository clientRepository;
+
+    @Autowired
+    TransactionRepository transactionRepository;
+
+    @Autowired
+    LevelRepository levelRepository;
+
 
     @Autowired
     TraderService traderService;
@@ -152,6 +164,33 @@ public class ClientService {
 
         Optional<Client> client = clientRepository.findById(userDetail.getUsername());
         return client.get();
+    }
+
+
+    /*Job to run every first day of month to udate client level if needed*/
+    @Scheduled(cron = "0 0 1 * *?")
+    public void scheduleTaskWithCronExpression() {
+        logger.info("Cron Task :: Execution Time - {}", new Date());
+        Date date=new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000L);
+        Calendar gc = new GregorianCalendar();
+        gc.set(Calendar.MONTH, date.getMonth());
+        gc.set(Calendar.DAY_OF_MONTH, 1);
+        Date monthStart = gc.getTime();
+        gc.add(Calendar.MONTH, 1);
+        gc.add(Calendar.DAY_OF_MONTH, -1);
+        Date monthEnd = gc.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+
+
+         List<Integer> clinetIds= transactionRepository.getClinetswithMorethat20trxTrade(DateUtils.truncate(monthStart, Calendar.DATE), DateUtils.truncate(monthEnd, Calendar.DATE));
+        Level gold = levelRepository.findByName("GOLD").get(0);
+        Client client;
+         for (Integer id: clinetIds){
+             client=clientRepository.findByClientId(id).get(0);
+             if(client.getLevel().getName().equals("SILVER"))
+             client.setLevel(gold);
+             clientRepository.save(client);
+         }
     }
 
 

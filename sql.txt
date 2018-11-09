@@ -1,0 +1,48 @@
+mysql> create database db_bts; -- Create the new database
+mysql> create user 'root'@'localhost' identified by '123456'; -- Creates the user
+mysql> grant all on db_bts.* to 'root'@'localhost'; -- Gives all the privileges to the new user on the newly created database
+
+
+
+
+
+
+
+
+CREATE TABLE u_user (
+     id MEDIUMINT NOT NULL AUTO_INCREMENT,
+     username VARCHAR(30) NOT NULL,
+     password VARCHAR(30) NOT NULL,
+     role INT DEFAULT 3,
+     PRIMARY KEY (id),
+     UNIQUE(username)
+);
+
+
+INSERT INTO u_user (username,password,role) VALUES('pmousavi','1370301',3);
+
+
+CREATE TABLE u_client (
+     id MEDIUMINT NOT NULL REFERENCES u_user(id) ,
+     firstname VARCHAR(30) NOT NULL,
+     lastname VARCHAR(30) NOT NULL,
+     phone VARCHAR(10) ,
+	 cellphone VARCHAR(10) ,
+	 email VARCHAR(30),
+	 level INT DEFAULT 3,
+	 balance INT DEFAULT 0,
+	 fiat_currency INT DEFAULT 0,
+	 trader_id INT NOT NULL REFERENCES u_trader(id),
+	 street VARCHAR(30),
+	 city VARCHAR(30),
+	 state VARCHAR(30),
+	 zipcode CHAR(5),
+     PRIMARY KEY (id)
+);
+
+CREATE TABLE u_trader (
+     id MEDIUMINT NOT NULL REFERENCES u_user(id) ,
+     firstname VARCHAR(30) NOT NULL,
+     lastname VARCHAR(30) NOT NULL,
+     PRIMARY KEY (id)
+);

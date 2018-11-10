@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+    <title>BTS: Client Home</title>
+</head>
+<body>
+BTS: Client Home
+<br></br>
+<h:form>
+    <h:commandLink value="List">
+    </h:commandLink>
+    <br></br>
+    <h:commandLink value="History">
+    </h:commandLink>
+</h:form>
+<br></br>
+
+Client List:
+<h:dataTable var="client">
+
+    <h:column>
+        <f:facet name="header">Client ID</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">First Name</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Last Name</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">More</f:facet>
+
+    </h:column>
+</h:dataTable>
+
+<br></br>
+History:
+<h:dataTable var="history">
+
+    <h:column>
+        <f:facet name="header">Transaction ID</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Transaction Type</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Amount</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Date</f:facet>
+
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">More</f:facet>
+
+    </h:column>
+</h:dataTable>
+
+<br></br>
+History Search:
+<h:form>
+    <table>
+
+        <tr>
+            <td>Client Name:</td>
+            <td><h:inputText size = "10"  /></td>
+        </tr>
+
+        <tr>
+            <td>Address:</td>
+            <td><h:inputText size = "20" /></td>
+        </tr>
+        <tr>
+            <td> </td>
+            <td><h:commandButton value = "Search"/></td>
+        </tr>
+    </table>
+</h:form>
+
+</body>
+</html>

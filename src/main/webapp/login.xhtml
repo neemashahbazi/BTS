@@ -5,16 +5,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-<head>
+<h:head>
     <title>BTS: Login</title>
-</head>
-<body>
-<h:form>
-    Welcome to Bitcoin Trading System (BTS)
-    <br></br>
-    <h:inputText a:placeholder="Username"/>
-    <h:inputSecret a:placeholder="Password"/>
-    <h:commandButton value="Submit"/>
-</h:form>
-</body>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
+<h:body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-6 col-centered">
+                <h:form>
+                    <h1 class="text-center" style="margin-top: 100px">Welcome to Bitcoin Trading System (BTS)</h1>
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <h:inputText id="username" styleClass="form-control" a:placeholder="Username"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <h:inputSecret id="password" styleClass="form-control" a:placeholder="Password"/>
+                    </div>
+                    <div class="form-group text-center">
+                        <h:commandButton styleClass="btn btn-primary btn-lg center-block" value="Login"/>
+                    </div>
+
+                </h:form>
+            </div>
+        </div>
+    </div>
+</h:body>
 </html>

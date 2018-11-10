@@ -6,9 +6,13 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-<head>
+<h:head>
     <title>BTS: Trader Home</title>
-</head>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
 <body>
 BTS: Trader Home
 <br></br>
@@ -21,8 +25,8 @@ BTS: Trader Home
 </h:form>
 <br></br>
 
-Client List:
-<h:dataTable var="client">
+<div>Client List:</div>
+<h:dataTable styleClass="table table-striped" var="client">
 
     <h:column>
         <f:facet name="header">Client ID</f:facet>
@@ -63,7 +67,7 @@ Client List:
 
 <br></br>
 History:
-<h:dataTable var="history">
+<h:dataTable styleClass="table table-striped" var="history">
 
     <h:column>
         <f:facet name="header">Transaction ID</f:facet>

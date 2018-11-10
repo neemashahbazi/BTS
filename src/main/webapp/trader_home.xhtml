@@ -7,24 +7,60 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 <head>
-    <title>BTS: Client Home</title>
+    <title>BTS: Trader Home</title>
 </head>
 <body>
-BTS: Client Home
+BTS: Trader Home
 <br></br>
 <h:form>
-    <h:commandLink value="Add to Balance">
-    </h:commandLink>
-    <br></br>
-    <h:commandLink value="Buy">
-    </h:commandLink>
-    <br></br>
-    <h:commandLink value="Sell">
-    </h:commandLink>
-    <br></br>
     <h:commandLink value="History">
     </h:commandLink>
+    <br></br>
+    <h:commandLink value="Search">
+    </h:commandLink>
 </h:form>
+<br></br>
+
+Client List:
+<h:dataTable var="client">
+
+    <h:column>
+        <f:facet name="header">Client ID</f:facet>
+        NIMAAAAA
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Name</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Cell Phone Number</f:facet>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Phone Number</f:facet>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Email</f:facet>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Address</f:facet>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Level</f:facet>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Balance</f:facet>
+    </h:column>
+    <h:column>
+        <f:facet name="header">Fiat Currency</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Actions</f:facet>
+
+    </h:column>
+</h:dataTable>
+
 <br></br>
 History:
 <h:dataTable var="history">
@@ -55,6 +91,42 @@ History:
     </h:column>
 
 </h:dataTable>
+
+<br></br>
+History Search:
+<h:form>
+    <table>
+
+        <tr>
+            <td>Client First Name:</td>
+            <td><h:inputText size="20"/></td>
+        </tr>
+        <tr>
+            <td>Client Last Name:</td>
+            <td><h:inputText size="20"/></td>
+        </tr>
+        <tr>
+            <td>Cell Phone Number:</td>
+            <td><h:inputText size="20"/></td>
+        </tr>
+        <tr>
+            <td>Phone Number:</td>
+            <td><h:inputText size="20"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><h:inputText size="20"/></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td><h:inputText size="20"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><h:commandButton value="Search"/></td>
+        </tr>
+    </table>
+</h:form>
 
 <br></br>
 Buy Bitcoin:
@@ -103,20 +175,6 @@ Sell Bitcoin:
 
     </table>
 </h:form>
-<br></br>
-Add to Balance:
-<table>
-
-    <tr>
-        <td>Amount:</td>
-        <td><h:inputText size="10"/></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><h:commandButton value="Add"/></td>
-    </tr>
-
-</table>
 
 </body>
 </html>

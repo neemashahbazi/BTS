@@ -4,17 +4,31 @@ mysql> grant all on db_bts.* to 'root'@'localhost'; -- Gives all the privileges 
 
 
 
-CREATE TABLE u_user (
-     id MEDIUMINT NOT NULL AUTO_INCREMENT,
-     username VARCHAR(30) NOT NULL,
-     password VARCHAR(30) NOT NULL,
-     role INT DEFAULT 3,
-     PRIMARY KEY (id),
-     UNIQUE(username)
-);
+CREATE  TABLE db_bts.u_users (
+  username VARCHAR(20) NOT NULL ,
+  password VARCHAR(20) NOT NULL ,
+  enabled TINYINT NOT NULL DEFAULT 1 ,
+  PRIMARY KEY (username));
+
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','trader', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client','client', true);
+
+  CREATE TABLE db_bts.u_roles (
+    user_role_id int(11) NOT NULL AUTO_INCREMENT,
+    username varchar(20) NOT NULL,
+    role varchar(20) NOT NULL,
+    PRIMARY KEY (user_role_id),
+    UNIQUE KEY uni_username_role (role,username),
+    KEY fk_username_idx (username),
+    CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
 
 
-INSERT INTO u_user (username,password,role) VALUES('pmousavi','1370301',3);
+INSERT INTO db_bts.u_roles(username, role) VALUES ('trader', 'TRADER');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client', 'CLIENT');
+
+
+
+
 
 
 CREATE TABLE u_client (

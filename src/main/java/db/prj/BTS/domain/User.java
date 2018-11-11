@@ -4,26 +4,15 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "u_user")
+@Table(name = "u_users")
 public class User {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
 
+    @Id
     private String username;
 
     private String password;
 
-    private  int role;
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private  boolean enabled;
 
     public String getUsername() {
         return username;
@@ -41,11 +30,11 @@ public class User {
         this.password = password;
     }
 
-    public int getRole() {
-        return role;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setRole(Role role) {
-        this.role = role.getValue();
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

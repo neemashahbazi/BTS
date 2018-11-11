@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+    <title>BTS: Client Home</title>
+</head>
+<body>
+BTS: Client Home
+<br></br>
+<h:form>
+    <h:commandLink value="Add to Balance">
+    </h:commandLink>
+    <br></br>
+    <h:commandLink value="Buy">
+    </h:commandLink>
+    <br></br>
+    <h:commandLink value="Sell">
+    </h:commandLink>
+    <br></br>
+    <h:commandLink value="History">
+    </h:commandLink>
+</h:form>
+<br></br>
+History:
+<h:dataTable var="history">
+
+    <h:column>
+        <f:facet name="header">Transaction ID</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Transaction Type</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Amount</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Date</f:facet>
+
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Commission Type</f:facet>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">Commission Amount</f:facet>
+    </h:column>
+
+</h:dataTable>
+
+<br></br>
+Buy Bitcoin:
+<h:form>
+    <table>
+
+        <tr>
+            <td>Amount:</td>
+            <td><h:inputText size="10"/>/Balance</td>
+        </tr>
+        <tr>
+            <td>Commission Type:</td>
+            <td><h:selectOneMenu>
+                <f:selectItem itemValue="" itemLabel="From Balance"/>
+                <f:selectItem itemValue="" itemLabel="From Fiat Currency"/>
+            </h:selectOneMenu></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><h:commandButton value="Buy"/></td>
+        </tr>
+
+    </table>
+</h:form>
+
+<br></br>
+Sell Bitcoin:
+<h:form>
+    <table>
+
+        <tr>
+            <td>Amount:</td>
+            <td><h:inputText size="10"/>/Balance</td>
+        </tr>
+        <tr>
+            <td>Commission Type:</td>
+            <td><h:selectOneMenu>
+                <f:selectItem itemValue="" itemLabel="From Balance"/>
+                <f:selectItem itemValue="" itemLabel="From Fiat Currency"/>
+            </h:selectOneMenu></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><h:commandButton value="Sell"/></td>
+        </tr>
+
+    </table>
+</h:form>
+<br></br>
+Add to Balance:
+<table>
+
+    <tr>
+        <td>Amount:</td>
+        <td><h:inputText size="10"/></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><h:commandButton value="Add"/></td>
+    </tr>
+
+</table>
+
+</body>
+</html>

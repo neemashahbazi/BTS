@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title>BTS: Trader Home</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <h1 class="text-center">BTS: Trader Home</h1>
+            <h:form>
+                <h:commandLink style="margin-right: 30px ; font-size: 20px" value="History"><i style="margin: 2px"
+                                                                                               class="fa fa-history"></i>
+                </h:commandLink>
+                <h:commandLink style="font-size: 20px" value="Search"><i style="margin: 2px " class="fa fa-search"></i>
+
+                </h:commandLink>
+            </h:form>
+            <br></br>
+            <br></br>
+
+
+            <h2>Client List:</h2>
+            <h:dataTable styleClass="table table-striped" var="user" value="#{userView.getUsers()}">
+
+                <h:column>
+                    <f:facet name="header">Client ID</f:facet>#{user.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>#{user.username}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Cell Phone Number</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Phone Number</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Address</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Level</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Balance</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fiat Currency</f:facet>#{user.password}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-primary btn-sm"
+                                     value="Buy"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-success btn-sm"
+                                     value="Sell"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-info btn-sm"
+                                     value="Info"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-warning btn-sm"
+                                     value="Cancel"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-danger btn-sm"
+                                     value="Delete"/>
+
+
+                </h:column>
+            </h:dataTable>
+
+            <h2>History:</h2>
+            <h:dataTable styleClass="table table-striped" var="history">
+
+                <h:column>
+                    <f:facet name="header">Transaction ID</f:facet>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Transaction Type</f:facet>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Amount</f:facet>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Date</f:facet>
+
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Commission Type</f:facet>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Commission Amount</f:facet>
+                </h:column>
+
+            </h:dataTable>
+
+            <div class="col-md-4 col-centered border">
+                <h2>Search:</h2>
+                <h:form>
+                    <table class="form-group">
+
+                        <tr>
+                            <td>Client First Name:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Client Last Name:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Cell Phone Number:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>Address:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                                                                     styleClass="btn btn-primary" value="Search"/></td>
+                        </tr>
+                    </table>
+                </h:form>
+            </div>
+
+            <div class="col-md-4 col-centered border">
+                <h2>Buy Bitcoin:</h2>
+                <h:form>
+                    <table>
+
+                        <tr>
+                            <td>Amount:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                            <td>/Balance</td>
+
+                        </tr>
+                        <tr>
+                            <td>Commission Type:</td>
+                            <td><h:selectOneMenu styleClass="dropdown">
+                                <f:selectItem itemValue="" itemLabel="From Balance"/>
+                                <f:selectItem itemValue="" itemLabel="From Fiat Currency"/>
+                            </h:selectOneMenu></td>
+
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                                                                     styleClass="btn btn-primary" value="Buy"/></td>
+                        </tr>
+
+                    </table>
+                </h:form>
+                <br></br>
+            </div>
+
+            <div class="col-md-4 col-centered border">
+                <h2>Sell Bitcoin:</h2>
+
+                <h:form>
+                    <table>
+
+                        <tr>
+                            <td>Amount:</td>
+                            <td><h:inputText styleClass="form-control"/></td>
+                            <td>/Balance</td>
+                        </tr>
+                        <tr>
+                            <td>Commission Type:</td>
+                            <td><h:selectOneMenu>
+                                <f:selectItem itemValue="" itemLabel="From Balance"/>
+                                <f:selectItem itemValue="" itemLabel="From Fiat Currency"/>
+                            </h:selectOneMenu></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                                                                     styleClass="btn btn-primary" value="Sell"/></td>
+                        </tr>
+
+                    </table>
+                </h:form>
+                <br></br>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+

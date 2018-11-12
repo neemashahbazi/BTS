@@ -1,12 +1,13 @@
 package db.prj.BTS.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "u_users")
-public class User {
+public class User implements Serializable {
 
     @Id
     private String username;

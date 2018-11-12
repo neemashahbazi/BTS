@@ -10,6 +10,8 @@ CREATE  TABLE db_bts.u_users (
   enabled TINYINT NOT NULL DEFAULT 1 ,
   PRIMARY KEY (username));
 
+  Drop Table db_bts.u_users;
+
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','trader', true);
     INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader2','trader', true);
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client','client', true);
@@ -25,6 +27,9 @@ CREATE  TABLE db_bts.u_users (
     KEY fk_username_idx (username),
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
 
+      Drop Table db_bts.u_roles;
+
+
 
 INSERT INTO db_bts.u_roles(username, role) VALUES ('trader', 'TRADER');
 INSERT INTO db_bts.u_roles (username, role) VALUES ('client', 'CLIENT');
@@ -39,6 +44,9 @@ CREATE TABLE db_bts.u_traders (
    PRIMARY KEY (username),
    KEY fk_username_user (username),
   CONSTRAINT fk_username_user FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
+
+    Drop Table db_bts.u_traders;
+
 
 INSERT INTO db_bts.u_traders(username) VALUES ('trader');
 INSERT INTO db_bts.u_traders(username) VALUES ('trader2');
@@ -68,14 +76,25 @@ CREATE TABLE db_bts.u_clients (
           INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
           VALUES ('client2','Nima','shahbazi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader2','19251 preston rd','dallas','texas','75252');
 
+  Drop Table db_bts.u_clients;
 
 
 
 
-CREATE TABLE trx_transaction (
-     id MEDIUMINT NOT NULL AUTO_INCREMENT,
-     date DATETIME NOT NULL,
-     time TIMESTAMP NOT NULL,
-     PRIMARY KEY (id)
-);
+CREATE TABLE trx_transactions (
+     id int(11) NOT NULL AUTO_INCREMENT,
+     date DATE NOT NULL,
+     time TIME NOT NULL,
+     date_time TIMESTAMP NOT NULL,
+     amount int(11),
+     trx_type varchar(30) NOT NULL,
+     commission_amount int(11),
+     commission_type varchar(11),
+     client_id  int(11) NOT NULL,
+     trader_username  VARCHAR(20),
+     PRIMARY KEY (id),
+     CONSTRAINT fk_trx_client FOREIGN KEY (client_id) REFERENCES db_bts.u_clients (id),
+     CONSTRAINT fk_trx_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username));
+
+
 

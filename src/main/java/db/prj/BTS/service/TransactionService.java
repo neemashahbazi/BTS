@@ -4,6 +4,7 @@ import db.prj.BTS.domain.*;
 import db.prj.BTS.repository.BuyTransactionRepository;
 import db.prj.BTS.repository.PaymentTransactionRepository;
 import db.prj.BTS.repository.SellTransactionRepository;
+import db.prj.BTS.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class TransactionService {
 
     @Autowired
     private PaymentTransactionRepository paymentTransactionRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     public  BuyTransaction  buyBitcoin (Integer amount, String commission_type,Client client){
 
@@ -80,6 +84,10 @@ public class TransactionService {
 
         return paymentTransactionRepository.save(paymentTransaction);
 
+    }
+
+    public void cancle (Integer trx_id){
+       transactionRepository.deleteById(trx_id);
 
     }
 }

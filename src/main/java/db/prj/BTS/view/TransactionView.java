@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 
 @Named
 public class TransactionView {
@@ -31,5 +32,15 @@ public class TransactionView {
     public PaymentTransaction pay(Integer amount, Integer client_id){
         Client client= clientService.getClientByID(client_id).get(0);
         return transactionService.pay(amount,client,client.getTrader());
+    }
+
+    public void cancle(Integer trx_id){
+         transactionService.cancle(trx_id);
+    }
+
+    public List<Transaction> getAllTransactionByClientId(Integer client_id){
+        Client client= clientService.getClientByID(client_id).get(0);
+        return  client.getTransactionList();
+
     }
 }

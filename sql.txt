@@ -11,13 +11,16 @@ CREATE  TABLE db_bts.u_users (
   PRIMARY KEY (username));
 
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','trader', true);
+    INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader2','trader', true);
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client','client', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client2','client', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('manager','manager', true);
 
   CREATE TABLE db_bts.u_roles (
-    user_role_id int(11) NOT NULL AUTO_INCREMENT,
+    id int(11) NOT NULL AUTO_INCREMENT,
     username varchar(20) NOT NULL,
     role varchar(20) NOT NULL,
-    PRIMARY KEY (user_role_id),
+    PRIMARY KEY (id),
     UNIQUE KEY uni_username_role (role,username),
     KEY fk_username_idx (username),
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
@@ -25,36 +28,48 @@ CREATE  TABLE db_bts.u_users (
 
 INSERT INTO db_bts.u_roles(username, role) VALUES ('trader', 'TRADER');
 INSERT INTO db_bts.u_roles (username, role) VALUES ('client', 'CLIENT');
+INSERT INTO db_bts.u_roles(username, role) VALUES ('trader2', 'TRADER');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('client2', 'CLIENT');
+INSERT INTO db_bts.u_roles (username, role) VALUES ('manager', 'MANAGER');
 
 
 
+CREATE TABLE db_bts.u_traders (
+   username VARCHAR(20) NOT NULL,
+   PRIMARY KEY (username),
+   KEY fk_username_user (username),
+  CONSTRAINT fk_username_user FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
 
+INSERT INTO db_bts.u_traders(username) VALUES ('trader');
+INSERT INTO db_bts.u_traders(username) VALUES ('trader2');
 
-
-CREATE TABLE u_client (
-     id MEDIUMINT NOT NULL REFERENCES u_user(id) ,
+CREATE TABLE db_bts.u_clients (
+     id int(11) NOT NULL AUTO_INCREMENT,
+     username VARCHAR(20) NOT NULL,
      firstname VARCHAR(30) NOT NULL,
      lastname VARCHAR(30) NOT NULL,
-     phone VARCHAR(10) ,
-	 cellphone VARCHAR(10) ,
+     phone_num VARCHAR(10) ,
+	 cellphone_num VARCHAR(10) ,
 	 email VARCHAR(30),
-	 level INT DEFAULT 3,
-	 balance INT DEFAULT 0,
+	 level VARCHAR(30) DEFAULT 'SILVER"',
+	 bitcoin_bal INT DEFAULT 0,
 	 fiat_currency INT DEFAULT 0,
-	 trader_id INT NOT NULL REFERENCES u_trader(id),
+	 trader_username  VARCHAR(20) NOT NULL,
 	 street VARCHAR(30),
 	 city VARCHAR(30),
 	 state VARCHAR(30),
 	 zipcode CHAR(5),
-     PRIMARY KEY (id)
-);
+     PRIMARY KEY (id),
+      CONSTRAINT fk_client_user FOREIGN KEY (username) REFERENCES db_bts.u_users (username),
+     CONSTRAINT fk_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username));
 
-CREATE TABLE u_trader (
-     id MEDIUMINT NOT NULL REFERENCES u_user(id) ,
-     firstname VARCHAR(30) NOT NULL,
-     lastname VARCHAR(30) NOT NULL,
-     PRIMARY KEY (id)
-);
+     INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader','19251 preston rd','dallas','texas','75252');
+          INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
+          VALUES ('client2','Nima','shahbazi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader2','19251 preston rd','dallas','texas','75252');
+
+
+
 
 
 CREATE TABLE trx_transaction (

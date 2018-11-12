@@ -34,33 +34,37 @@
 
 
             <h2>Client List:</h2>
-            <h:dataTable styleClass="table table-striped" var="user" value="#{userView.getUsers()}">
+            <h:dataTable styleClass="table table-striped" var="client" value="#{traderView.getAllClientsByTrader()}">
 
 
                 <h:column>
-                    <f:facet name="header">Name</f:facet>#{user.username}
+                    <f:facet name="header">Name</f:facet>#{client.firstname}
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">Cell Phone Number</f:facet>#{user.password}
+                    <f:facet name="header">Last Name</f:facet>#{client.lastname}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Cell Phone Number</f:facet>#{client.cellphone_num}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Phone Number</f:facet>#{user.password}
+                    <f:facet name="header">Phone Number</f:facet>#{client.phone_num}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Email</f:facet>#{user.password}
+                    <f:facet name="header">Email</f:facet>#{client.email}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Address</f:facet>#{user.password}
+                    <f:facet name="header">Address</f:facet>#{client.street}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Level</f:facet>#{user.password}
+                    <f:facet name="header">Level</f:facet>#{client.level}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Balance</f:facet>#{user.password}
+                    <f:facet name="header">Balance</f:facet>#{client.bitcoin_bal}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Fiat Currency</f:facet>#{user.password}
+                    <f:facet name="header">Fiat Currency</f:facet>#{client.fiat_currency}
                 </h:column>
 
                 <h:column>

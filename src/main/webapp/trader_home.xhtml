@@ -20,18 +20,36 @@
     <div class="row">
         <div class="col-md-12">
 
-            <h1 class="text-center">BTS: Trader Home</h1>
+            <h1 class="text-center">BTS<i style="margin: 5px"
+                                          class="fa fa-bitcoin"></i>: Trader Home</h1>
             <h:form>
-                <h:commandLink style="margin-right: 30px ; font-size: 20px" value="History"><i style="margin: 2px"
+                <h:commandLink style="margin-right: 30px ; font-size: 25px" value="History"><i style="margin: 5px"
                                                                                                class="fa fa-history"></i>
                 </h:commandLink>
-                <h:commandLink style="font-size: 20px" value="Search"><i style="margin: 2px " class="fa fa-search"></i>
+                <h:commandLink style=" margin-right: 30px ;font-size: 25px" value="Search"><i style="margin: 5px "
+                                                                                              class="fa fa-search"></i>
 
+                </h:commandLink>
+
+                <h:commandLink style="margin-right: 30px ; font-size: 25px" value="Buy Bitcoin"><i style="margin: 5px"
+                                                                                                   class="fa fa-cart-plus"></i>
+                </h:commandLink>
+                <h:commandLink style="margin-right: 30px ; font-size: 25px" value="Sell Bitcoin"><i style="margin: 5px"
+                                                                                                    class="fa fa-handshake-o"></i>
+                </h:commandLink>
+                <h:commandLink style="margin-right: 30px ; font-size: 25px" value="Add To Balance"><i
+                        style="margin: 5px"
+                        class="fa fa-dollar"></i>
                 </h:commandLink>
             </h:form>
             <br></br>
-            <br></br>
 
+            <h2 class="text-center">Current Bitcoin Price <span class="badge badge-success"
+                                                                id="bitcoin-data">
+            </span><h:link onclick="parseJson();"
+                    style="margin-left: 5px ; font-size: 30px" value=""><i style="margin: 2px"
+                                                                           class="fa fa-refresh"></i>
+            </h:link></h2>
 
             <h2>Client List:</h2>
             <h:dataTable styleClass="table table-striped" var="user" value="#{userView.getUsers()}">
@@ -169,13 +187,12 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                            <td class="text-center"><h:commandButton style="margin: 5px 0px 10px 0px"
                                                                      styleClass="btn btn-primary" value="Buy"/></td>
                         </tr>
 
                     </table>
                 </h:form>
-                <br></br>
             </div>
 
             <div class="col-md-4 col-centered border">
@@ -198,17 +215,180 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                            <td class="text-center"><h:commandButton style="margin: 5px 0px 10px 0px"
                                                                      styleClass="btn btn-primary" value="Sell"/></td>
                         </tr>
 
                     </table>
                 </h:form>
-                <br></br>
             </div>
+            <div class="col-md-4 col-centered border text-center">
+                <h1>Success!</h1>
+                <h4>Transaction Done Successfully!</h4>
+                <h6>N Bitcoins Bought/Sold...</h6>
+
+                <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
+                <br></br>
+                <h:commandButton style="margin: 5px 0px 10px 0px"
+                                 styleClass="btn btn-primary" value="Return Home"/>
+            </div>
+            <div class="col-md-4 col-centered border text-center">
+                <h1>Success!</h1>
+                <h4>Transaction Canceled Successfully!</h4>
+                <h6>Transaction # Was Canceled...</h6>
+
+                <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
+                <br></br>
+                <h:commandButton style="margin: 5px 0px 10px 0px"
+                                 styleClass="btn btn-primary" value="Return Home"/>
+            </div>
+            <div class="col-md-4 col-centered border text-center">
+                <h1>Success!</h1>
+                <h4>User Deleted Successfully!</h4>
+                <h6>User # Was Deleted...</h6>
+
+                <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
+                <br></br>
+                <h:commandButton style="margin: 5px 0px 10px 0px"
+                                 styleClass="btn btn-primary" value="Return Home"/>
+            </div>
+            <div class="col-md-4 col-centered border">
+                <h2>Client Info:</h2>
+                <table>
+                    <tr>
+                        <td>First Name:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Cell Phone Number:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Address:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Level:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Balance:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Fiat Currency:</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><h:commandButton style="margin: 5px 0px 10px 0px"
+                                                                 styleClass="btn btn-primary" value="Return Home"/></td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>Search Result For: "Search Key"</h2>
+            <h:dataTable styleClass="table table-striped" var="user" value="#{userView.getUsers()}">
+
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>#{user.username}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Cell Phone Number</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Phone Number</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Address</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Level</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Balance</f:facet>#{user.password}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fiat Currency</f:facet>#{user.password}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-primary btn-sm"
+                                     value="Buy"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-success btn-sm"
+                                     value="Sell"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-info btn-sm"
+                                     value="Info"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-warning btn-sm"
+                                     value="Cancel"/>
+                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-danger btn-sm"
+                                     value="Delete"/>
+                </h:column>
+            </h:dataTable>
+
+        </div>
+        <div class="col-md-4 col-centered border">
+            <h2>Add to Balance:</h2>
+
+            <h:form>
+                <table>
+
+                    <tr>
+                        <td>Amount:</td>
+                        <td><h:inputText styleClass="form-control"/></td>
+                        <td>$(USD)</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                                                                 styleClass="btn btn-primary" value="Add Balance"/></td>
+                    </tr>
+
+                </table>
+            </h:form>
+            <br></br>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var xmlhttp = new XMLHttpRequest();
+    var url = "https://api.coindesk.com/v1/bpi/currentprice.json";
+
+    xmlhttp.onreadystatechange = function () {
+        if (this.readyState == 4 &amp;&amp; this.status == 200) {
+            var json = JSON.parse(this.responseText);
+            parseJson(json);
+        }
+    };
+
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function parseJson(json) {
+        var usdValue = " $" + json["bpi"]["USD"]["rate"];
+        document.getElementById("bitcoin-data").innerHTML =
+            usdValue;
+    }
+
+</script>
 </body>
 </html>
 

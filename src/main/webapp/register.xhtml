@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+    <title>BTS: Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
+<h:body>
+    <div class="container">
+
+        <div class="row">
+            <div id="data"></div>
+            <div class="col-md-6 col-centered border" style="margin-top: 100px">
+                <h:form style="margin-top: 10px">
+                    <h1 class="text-center">Welcome to Bitcoin Trading System (BTS<i style="margin: 5px"
+                                                                                     class="fa fa-bitcoin"></i>)</h1>
+                    <h4 class="text-center">Enter your information to create an account:</h4>
+                    <br></br>
+
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <h:inputText id="username" styleClass="form-control" a:placeholder="Username"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <h:inputSecret id="password" styleClass="form-control" a:placeholder="Password"/>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <h:commandButton styleClass="btn btn-primary btn-lg center-block" value="Register"/>
+                    </div>
+
+                </h:form>
+            </div>
+            <div class="col-md-4 col-centered border text-center" style="margin-top: 100px">
+                <h1 style="margin-top: 10px">Success!</h1>
+                <h4>Account created successfully! You can now login to system...</h4>
+
+                <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
+                <br></br>
+                <h:commandButton style="margin: 5px 0px 10px 0px"
+                                 styleClass="btn btn-primary btn-lg" value="Return to Login"/>
+            </div>
+        </div>
+    </div>
+</h:body>
+</html>

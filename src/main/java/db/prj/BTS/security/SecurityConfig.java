@@ -29,7 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -39,6 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // login
         http.formLogin().loginPage("/login.xhtml").permitAll()
                 .failureUrl("/login.xhtml?error=true");
+        http.formLogin().defaultSuccessUrl("/home.xhtml", true);
+
         // logout
         http.logout().logoutSuccessUrl("/login.xhtml");
         // not needed as JSF 2.2 is implicitly protected against CSRF

@@ -1,16 +1,17 @@
 package db.prj.BTS.domain;
 
-import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "u_clients")
 public class Client extends User {
 
 
-    private Integer id;
+    @Column(name="id")
+    private Integer clientId;
     private String firstname;
     private String lastname;
     private String phone_num;
@@ -28,12 +29,15 @@ public class Client extends User {
     @JoinColumn(name = "TRADER_USERNAME")
     private Trader trader;
 
-    public Integer getId() {
-        return id;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Transaction> transactionList;
+
+    public Integer getClientId() {
+        return clientId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
     public String getFirstname() {
@@ -140,5 +144,13 @@ public class Client extends User {
 
     public void setTrader(Trader trader) {
         this.trader = trader;
+    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 }

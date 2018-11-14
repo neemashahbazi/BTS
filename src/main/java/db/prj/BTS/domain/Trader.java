@@ -14,6 +14,11 @@ public class Trader extends User{
     @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
     private List<Client> clientList;
 
+    @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
+    private List<PaymentTransaction> paymentTransactionList;
+
+
+
     public List<Client> getClientList() {
         return clientList;
     }

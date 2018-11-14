@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 
@@ -17,6 +20,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -114,6 +118,22 @@ public class ClientService {
             }
         });
         return  clients;
+    }
+
+
+    public Client getClientByUsername(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+
+        Optional<Client> client = clientRepository.findById(userDetail.getUsername());
+        return client.get();
+
+    }
+
+    public List<Client> getClientByID(Integer id){
+        List<Client> client = clientRepository.findByClientId(id);
+        return client;
+
     }
 
 

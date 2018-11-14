@@ -57,47 +57,47 @@ public class ClientService {
 
                 // If firstName is specified in filter, add contains (lile)
                 // filter to where clause with ignore case
-                if (filter.getFirstname() != null) {
+                if (filter.getFirstname() != null && !filter.getFirstname().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("firstname")),
                             "%" + filter.getFirstname().toLowerCase() + "%"));
                 }
 
                 // If lastName is specified in filter, add contains (lile)
                 // filter to where clause with ignore case
-                if (filter.getLastname() != null) {
+                if (filter.getLastname() != null  && !filter.getLastname().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("lastname")),
                             "%" + filter.getLastname().toLowerCase() + "%"));
                 }
 
-                if (filter.getPhone_num() != null) {
+                if (filter.getPhone_num() != null && !filter.getPhone_num().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("phone_num")),
                             "%" + filter.getPhone_num().toLowerCase() + "%"));
                 }
 
-                if (filter.getCellphone_num() != null) {
+                if (filter.getCellphone_num() != null && !filter.getCellphone_num().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("cellphone_num")),
                             "%" + filter.getCellphone_num().toLowerCase() + "%"));
                 }
 
-                if (filter.getEmail() != null) {
+                if (filter.getEmail() != null && !filter.getEmail().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("email")),
                             "%" + filter.getEmail().toLowerCase() + "%"));
                 }
 
-                if (filter.getStreet() != null) {
+                if (filter.getStreet() != null && !filter.getStreet().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("street")),
                             "%" + filter.getStreet().toLowerCase() + "%"));
                 }
 
-                if (filter.getState() != null) {
+                if (filter.getState() != null && !filter.getState().isEmpty()) {
                     predicates.add(cb.equal(root.get("state"), filter.getState()));
                 }
 
-                if (filter.getCity() != null) {
+                if (filter.getCity() != null && !filter.getCity().isEmpty()) {
                     predicates.add(cb.equal(root.get("city"), filter.getCity()));
                 }
 
-                if (filter.getZipcode() != null) {
+                if (filter.getZipcode() != null && !filter.getZipcode().isEmpty()) {
                     predicates.add(cb.equal(root.get("zipcode"), filter.getZipcode()));
                 }
 
@@ -109,7 +109,7 @@ public class ClientService {
                     predicates.add(cb.equal(root.get("bitcoin_bal"), filter.getBitcoin_bal()));
                 }
 
-                if (filter.getLevel() != null) {
+                if (filter.getLevel() != null  && !filter.getLevel().isEmpty()) {
                     predicates.add(cb.equal(root.get("level"), filter.getLevel()));
                 }
 
@@ -146,7 +146,6 @@ public class ClientService {
 
         Optional<Client> client = clientRepository.findById(userDetail.getUsername());
         return client.get();
-
     }
 
 

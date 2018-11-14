@@ -11,7 +11,5 @@ public class BuyTransaction extends Transaction {
     public BuyTransaction() {
     }
 
-    public BuyTransaction(Date date, Date time, Date dateTime, Integer amount, Integer commission_amount, String commission_type, Client client) {
-        super(date, time, dateTime, amount, commission_amount, commission_type, client);
-    }
+
 }

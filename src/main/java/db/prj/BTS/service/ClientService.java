@@ -25,6 +25,12 @@ import java.util.Optional;
 
 @Service
 public class ClientService {
+
+    public static final String GOLD_LEVEL = "GOLD";
+    public static final String SILVER_LEVEL = "SILVER";
+    public static final double GOLD_PERCENTAGE = 0.1f;
+    public static final double SILVER_PERCENTAGE = 0.3f;
+
     @Autowired
     ClientRepository clientRepository;
 
@@ -32,9 +38,7 @@ public class ClientService {
     TraderService traderService;
 
 
-
-
-    public List<Client> getAllClient(){
+    public List<Client> getAllClient() {
 
 
         return (List<Client>) clientRepository.findAll();
@@ -116,31 +120,30 @@ public class ClientService {
                 predicates.add(cb.equal(root.get("trader"), traderService.getTrader()));
 
 
-
-
                 return cb.and(predicates.toArray(new Predicate[0]));
             }
         });
-        return  clients;
+        return clients;
     }
 
 
-    public Client getClientByUsername(){
+    public Client getClientByUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
         Optional<Client> client = clientRepository.findById(userDetail.getUsername());
         return client.get();
 
+
     }
 
-    public List<Client> getClientByID(Integer id){
+    public List<Client> getClientByID(Integer id) {
         List<Client> client = clientRepository.findByClientId(id);
         return client;
 
     }
 
-    public Client getClient(){
+    public Client getClient() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
 

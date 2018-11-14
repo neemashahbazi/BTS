@@ -14,7 +14,7 @@ public class User implements Serializable {
 
     private String password;
 
-    private  boolean enabled;
+    private boolean enabled;
 
     public String getUsername() {
         return username;

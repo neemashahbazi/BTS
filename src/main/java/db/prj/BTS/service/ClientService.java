@@ -109,6 +109,10 @@ public class ClientService {
                     predicates.add(cb.equal(root.get("bitcoin_bal"), filter.getBitcoin_bal()));
                 }
 
+                if (filter.getLevel() != null) {
+                    predicates.add(cb.equal(root.get("level"), filter.getLevel()));
+                }
+
                 predicates.add(cb.equal(root.get("trader"), traderService.getTrader()));
 
 
@@ -133,6 +137,15 @@ public class ClientService {
     public List<Client> getClientByID(Integer id){
         List<Client> client = clientRepository.findByClientId(id);
         return client;
+
+    }
+
+    public Client getClient(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+
+        Optional<Client> client = clientRepository.findById(userDetail.getUsername());
+        return client.get();
 
     }
 

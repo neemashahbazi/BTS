@@ -4,22 +4,16 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-@Entity(name = "trx_transactions")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "trx_type",
-        discriminatorType = DiscriminatorType.STRING)
-public class Transaction {
+@Entity(name = "trx_audit")
+public class AuditTransaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Temporal(TemporalType.DATE)
-    private Date date;
-    @Temporal(TemporalType.TIME)
-    private Date time;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateTime;
+    private Date deleted_date;
 
 
     private Double amount;
@@ -32,24 +26,11 @@ public class Transaction {
     private Client client;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "TRADER_USERNAME")
+    @JoinColumn(name = "deleted_by", referencedColumnName = "username")
     private Trader trader;
 
 
-    public Transaction() {
-
-    }
-
-    public Transaction(Date date, Date time, Date dateTime, Double amount, Double fiat_amount, Double commission_amount, String commission_type, Client client, Trader trader) {
-        this.date = date;
-        this.time = time;
-        this.dateTime = dateTime;
-        this.amount = amount;
-        this.fiat_amount = fiat_amount;
-        this.commission_amount = commission_amount;
-        this.commission_type = commission_type;
-        this.client = client;
-        this.trader = trader;
+    public AuditTransaction() {
     }
 
     public Integer getId() {
@@ -60,28 +41,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDeleted_date() {
+        return deleted_date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public Date getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setDeleted_date(Date deleted_date) {
+        this.deleted_date = deleted_date;
     }
 
     public Double getAmount() {
@@ -124,7 +89,6 @@ public class Transaction {
         this.client = client;
     }
 
-
     public Trader getTrader() {
         return trader;
     }
@@ -132,15 +96,6 @@ public class Transaction {
     public void setTrader(Trader trader) {
         this.trader = trader;
     }
-
-
-    @Override
-    public String toString() {
-        return "DateAndTime{" +
-                "id=" + id +
-                ", date=" + date +
-                ", time=" + time +
-                ", dateTime=" + dateTime +
-                '}';
-    }
 }
+
+

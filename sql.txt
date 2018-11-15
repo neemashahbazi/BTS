@@ -60,8 +60,8 @@ CREATE TABLE db_bts.u_clients (
 	 cellphone_num VARCHAR(10) ,
 	 email VARCHAR(30),
 	 level VARCHAR(30) DEFAULT 'SILVER"',
-	 bitcoin_bal INT DEFAULT 0,
-	 fiat_currency INT DEFAULT 0,
+	 bitcoin_bal DOUBLE DEFAULT 0,
+	 fiat_currency DOUBLE DEFAULT 0,
 	 trader_username  VARCHAR(20) NOT NULL,
 	 street VARCHAR(30),
 	 city VARCHAR(30),
@@ -72,7 +72,7 @@ CREATE TABLE db_bts.u_clients (
      CONSTRAINT fk_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username));
 
      INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
-     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader','19251 preston rd','dallas','texas','75252');
+     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com','SILVER',12000001,120000000,'trader','19251 preston rd','dallas','texas','75252');
           INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
           VALUES ('client2','Nima','shahbazi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader2','19251 preston rd','dallas','texas','75252');
 
@@ -86,13 +86,66 @@ CREATE TABLE trx_transactions (
      date DATE NOT NULL,
      time TIME NOT NULL,
      date_time TIMESTAMP NOT NULL,
-     amount int(11),
+     amount DOUBLE,
      trx_type varchar(30) NOT NULL,
-     commission_amount int(11),
+     fiat_amount DOUBLE,
+     commission_amount DOUBLE,
      commission_type varchar(11),
      client_id  int(11) NOT NULL,
      trader_username  VARCHAR(20),
      PRIMARY KEY (id),
      CONSTRAINT fk_trx_client FOREIGN KEY (client_id) REFERENCES db_bts.u_clients (id),
      CONSTRAINT fk_trx_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username));
+
+     DROP TABLE trx_transactions;
+
+
+     CREATE TABLE trx_audit (
+          id int(11) NOT NULL AUTO_INCREMENT,
+          deleted_date TIMESTAMP NOT NULL,
+          amount DOUBLE,
+          trx_type varchar(30) NOT NULL,
+          fiat_amount DOUBLE,
+          commission_amount DOUBLE,
+          commission_type varchar(11),
+          client_id  int(11) NOT NULL,
+          deleted_by  VARCHAR(20),
+          PRIMARY KEY (id),
+          CONSTRAINT fk_trx_audit_client FOREIGN KEY (client_id) REFERENCES db_bts.u_clients (id),
+          CONSTRAINT fk_trx_deletedtby FOREIGN KEY (deleted_by) REFERENCES db_bts.u_traders (username));
+
+DELIMITER //
+CREATE TRIGGER transaction_after_delete
+AFTER DELETE
+   ON trx_transactions FOR EACH ROW
+
+BEGIN
+
+
+
+   INSERT INTO trx_audit
+   (      id ,
+          deleted_date,
+          amount ,
+          trx_type,
+          fiat_amount,
+          commission_amount,
+          commission_type,
+          client_id ,
+          deleted_by)
+   VALUES
+   ( OLD.id,
+     SYSDATE(),
+     OLD.amount,
+     OLD.trx_type,
+     OLD.fiat_amount,
+     OLD.commission_amount,
+     OLD.commission_type,
+     OLD.client_id ,
+     OLD.trader_username );
+
+END; //
+
+DELIMITER ;
+
 

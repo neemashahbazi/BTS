@@ -10,7 +10,7 @@ import java.util.List;
 public class Client extends User {
 
 
-    @Column(name="id")
+    @Column(name = "id")
     private Integer clientId;
     private String firstname;
     private String lastname;
@@ -21,8 +21,8 @@ public class Client extends User {
     private String state;
     private String city;
     private String zipcode;
-    private Integer fiat_currency;
-    private Integer bitcoin_bal;
+    private Double fiat_currency;
+    private Double bitcoin_bal;
     private String level;
 
     @ManyToOne(optional = false)
@@ -112,19 +112,19 @@ public class Client extends User {
         this.zipcode = zipcode;
     }
 
-    public Integer getFiat_currency() {
+    public Double getFiat_currency() {
         return fiat_currency;
     }
 
-    public void setFiat_currency(Integer fiat_currency) {
+    public void setFiat_currency(Double fiat_currency) {
         this.fiat_currency = fiat_currency;
     }
 
-    public Integer getBitcoin_bal() {
+    public Double getBitcoin_bal() {
         return bitcoin_bal;
     }
 
-    public void setBitcoin_bal(Integer bitcoin_bal) {
+    public void setBitcoin_bal(Double bitcoin_bal) {
         this.bitcoin_bal = bitcoin_bal;
     }
 

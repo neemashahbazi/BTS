@@ -1,7 +1,6 @@
 package db.prj.BTS.domain;
 
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -10,13 +9,15 @@ import java.util.List;
 
 @Entity
 @Table(name = "u_traders")
-public class Trader extends User{
+public class Trader extends User {
     @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
     private List<Client> clientList;
 
     @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
-    private List<PaymentTransaction> paymentTransactionList;
+    private List<AuditTransaction> auditTransactionList;
 
+    @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
+    private List<Transaction> transactionList;
 
 
     public List<Client> getClientList() {
@@ -25,5 +26,21 @@ public class Trader extends User{
 
     public void setClientList(List<Client> clientList) {
         this.clientList = clientList;
+    }
+
+    public List<AuditTransaction> getAuditTransactionList() {
+        return auditTransactionList;
+    }
+
+    public void setAuditTransactionList(List<AuditTransaction> auditTransactionList) {
+        this.auditTransactionList = auditTransactionList;
+    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 }

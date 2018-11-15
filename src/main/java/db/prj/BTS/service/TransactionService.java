@@ -1,17 +1,25 @@
 package db.prj.BTS.service;
 
 import db.prj.BTS.domain.*;
-import db.prj.BTS.repository.BuyTransactionRepository;
-import db.prj.BTS.repository.PaymentTransactionRepository;
-import db.prj.BTS.repository.SellTransactionRepository;
-import db.prj.BTS.repository.TransactionRepository;
+import db.prj.BTS.exception.InsufficientBAlanceException;
+import db.prj.BTS.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import sun.net.www.http.HttpClient;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Service
 public class TransactionService {
+
+
+    public static final String FROM_BALANACE = "balance";
+    public static final String FROM_FIAT_CURRENCY = "currency";
+
     @Autowired
     private BuyTransactionRepository buyTransactionRepository;
 
@@ -24,54 +32,124 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    public  BuyTransaction  buyBitcoin (Integer amount, String commission_type,Client client){
+    @Autowired
+    private ClientRepository clientRepository;
+
+    public BuyTransaction buyBitcoin(Double amount, String commission_type, Client client) throws InsufficientBAlanceException {
 
         Date now = new Date();
 
+        double rate = getUpdatedBitCoinPrice();
+        double fiat_amount = rate * amount;
+        double commission_amount = 0;
+        if (FROM_BALANACE.equals(commission_type)) {
+            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
+                commission_amount = amount * ClientService.GOLD_PERCENTAGE;
+            else
+                commission_amount = amount * ClientService.SILVER_PERCENTAGE;
+            if (client.getFiat_currency() < fiat_amount)
+                throw new InsufficientBAlanceException("Fiat Currency is insufficient");
 
-        BuyTransaction buyTransaction =new BuyTransaction();
+            if (client.getBitcoin_bal() < commission_amount)
+                throw new InsufficientBAlanceException("Balance is insufficient");
+
+            client.setFiat_currency(client.getFiat_currency() - fiat_amount);
+            client.setBitcoin_bal((client.getBitcoin_bal() - commission_amount + amount));
+        } else if (FROM_FIAT_CURRENCY.equals(commission_type)) {
+            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
+                commission_amount = fiat_amount * ClientService.GOLD_PERCENTAGE;
+            else
+                commission_amount = fiat_amount * ClientService.SILVER_PERCENTAGE;
+            if (client.getFiat_currency() < fiat_amount + commission_amount)
+                throw new InsufficientBAlanceException("Fiat Currency is insufficient");
+
+            client.setFiat_currency(client.getFiat_currency() - fiat_amount - commission_amount);
+            client.setBitcoin_bal((client.getBitcoin_bal() + amount));
+        }
+
+
+        BuyTransaction buyTransaction = new BuyTransaction();
 
         buyTransaction.setDate(now);
         buyTransaction.setTime(now);
         buyTransaction.setDateTime(now);
         buyTransaction.setAmount(amount);
         buyTransaction.setCommission_type(commission_type);
-        buyTransaction.setCommission_amount(0);
+        buyTransaction.setCommission_amount(commission_amount);
         buyTransaction.setClient(client);
+        buyTransaction.setFiat_amount(fiat_amount);
+        buyTransaction.setTrader(client.getTrader());
+        BuyTransaction result = buyTransactionRepository.save(buyTransaction);
+        if (result != null)
+
+            clientRepository.save(client);
 
 
-       return buyTransactionRepository.save(buyTransaction);
+        return result;
 
 
     }
 
-    public SellTransaction sellBitcoin (Integer amount, String commission_type, Client client){
+    public SellTransaction sellBitcoin(Double amount, String commission_type, Client client) {
 
         Date now = new Date();
 
+        double rate = getUpdatedBitCoinPrice();
+        double fiat_amount = rate * amount;
+        double commission_amount=0 ;
+        if (FROM_BALANACE.equals(commission_type)) {
+            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
+                commission_amount = amount * ClientService.GOLD_PERCENTAGE;
+            else
+                commission_amount = amount * ClientService.SILVER_PERCENTAGE;
 
-        SellTransaction sellTransaction =new SellTransaction();
+            if (client.getBitcoin_bal() < commission_amount + amount)
+                throw new InsufficientBAlanceException("Balance is insufficient");
+
+            client.setFiat_currency(client.getFiat_currency() + fiat_amount);
+            client.setBitcoin_bal((client.getBitcoin_bal() - commission_amount - amount));
+        } else if (FROM_FIAT_CURRENCY.equals(commission_type)) {
+            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
+                commission_amount = fiat_amount * ClientService.GOLD_PERCENTAGE;
+            else
+                commission_amount = fiat_amount * ClientService.SILVER_PERCENTAGE;
+            if (client.getFiat_currency() < commission_amount)
+                throw new InsufficientBAlanceException("Fiat Currency is insufficient");
+            if (client.getBitcoin_bal() < amount)
+                throw new InsufficientBAlanceException("Balance is insufficient");
+
+            client.setFiat_currency(client.getFiat_currency() + fiat_amount - commission_amount);
+            client.setBitcoin_bal(client.getBitcoin_bal() - amount);
+        }
+
+        SellTransaction sellTransaction = new SellTransaction();
 
         sellTransaction.setDate(now);
         sellTransaction.setTime(now);
         sellTransaction.setDateTime(now);
         sellTransaction.setAmount(amount);
         sellTransaction.setCommission_type(commission_type);
-        sellTransaction.setCommission_amount(0);
+        sellTransaction.setCommission_amount(commission_amount);
         sellTransaction.setClient(client);
 
+        SellTransaction result = sellTransactionRepository.save(sellTransaction);
+        ;
+        if (result != null)
 
-        return sellTransactionRepository.save(sellTransaction);
+            clientRepository.save(client);
+
+
+        return result;
 
 
     }
 
-    public PaymentTransaction pay (Integer amount, Client client, Trader trader){
+    public PaymentTransaction pay(Double amount, Client client, Trader trader) {
 
         Date now = new Date();
 
 
-        PaymentTransaction paymentTransaction =new PaymentTransaction();
+        PaymentTransaction paymentTransaction = new PaymentTransaction();
 
         paymentTransaction.setDate(now);
         paymentTransaction.setTime(now);
@@ -80,14 +158,27 @@ public class TransactionService {
         paymentTransaction.setClient(client);
         paymentTransaction.setTrader(trader);
 
+        PaymentTransaction result = paymentTransactionRepository.save(paymentTransaction);
+        if (result != null)
+            client.setFiat_currency(client.getFiat_currency() + amount);
 
-
-        return paymentTransactionRepository.save(paymentTransaction);
+        return result;
 
     }
 
-    public void cancel (Integer trx_id){
-       transactionRepository.deleteById(trx_id);
+    public void cancel(Integer trx_id) {
+        transactionRepository.deleteById(trx_id);
+
+    }
+
+
+    public float getUpdatedBitCoinPrice() {
+
+
+        float rate = 5649.82f;
+
+        return rate;
+
 
     }
 }

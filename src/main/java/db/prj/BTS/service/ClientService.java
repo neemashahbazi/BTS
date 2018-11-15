@@ -25,6 +25,12 @@ import java.util.Optional;
 
 @Service
 public class ClientService {
+
+    public static final String GOLD_LEVEL = "GOLD";
+    public static final String SILVER_LEVEL = "SILVER";
+    public static final double GOLD_PERCENTAGE = 0.1f;
+    public static final double SILVER_PERCENTAGE = 0.3f;
+
     @Autowired
     ClientRepository clientRepository;
 
@@ -127,6 +133,7 @@ public class ClientService {
 
         Optional<Client> client = clientRepository.findById(userDetail.getUsername());
         return client.get();
+
 
     }
 

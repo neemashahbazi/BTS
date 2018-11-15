@@ -30,37 +30,43 @@
             <h:form>
                 <sec:authorize access="hasAuthority('CLIENT')">
 
-                <h:commandLink style="margin-right: 30px ; font-size: 25px" value="History"><i style="margin: 5px"
-                                                                                               class="fa fa-history"></i>
-                </h:commandLink>
+                    <h:outputLink style="margin-right: 30px ; font-size: 25px" value="history.xhtml">History<i
+                            style="margin: 5px"
+                            class="fa fa-history"></i><f:param
+                            name="id"
+                            value="#{clientView.getClient().getClientId()}"/>
+                    </h:outputLink>
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('TRADER')">
 
-                    <h:commandLink style=" margin-right: 30px ;font-size: 25px" value="Search"><i style="margin: 5px "
-                                                                                                  class="fa fa-search"></i>
-                    </h:commandLink>
+                    <h:outputLink style=" margin-right: 30px ;font-size: 25px" value="search.xhtml">Search<i style="margin: 5px "
+                                                                                                 class="fa fa-search"></i>
+                    </h:outputLink>
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('CLIENT')">
 
 
-                    <h:commandLink style="margin-right: 30px ; font-size: 25px" value="Buy Bitcoin"><i
+                    <h:outputLink style="margin-right: 30px ; font-size: 25px" value="buy.xhtml">Buy Bitcoin<i
                             style="margin: 5px"
-                            class="fa fa-cart-plus"></i>
-                    </h:commandLink>
+                            class="fa fa-cart-plus"></i><f:param name="id"
+                                                                 value="#{clientView.getClient().getClientId()}"/>
+                    </h:outputLink>
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('CLIENT')">
 
-                    <h:commandLink style="margin-right: 30px ; font-size: 25px" value="Sell Bitcoin"><i
+                    <h:outputLink style="margin-right: 30px ; font-size: 25px" value="sell.xhtml"><i
                             style="margin: 5px"
-                            class="fa fa-handshake-o"></i>
-                    </h:commandLink>
+                            class="fa fa-handshake-o"></i>Sell Bitcoin<f:param name="id"
+                                                                               value="#{clientView.getClient().getClientId()}"/>
+                    </h:outputLink>
                 </sec:authorize>
                 <sec:authorize access="hasAuthority('CLIENT')">
 
-                    <h:commandLink style="margin-right: 30px ; font-size: 25px" value="Add To Balance"><i
+                    <h:outputLink style="margin-right: 30px ; font-size: 25px" value="pay.xhtml"><i
                             style="margin: 5px"
-                            class="fa fa-dollar"></i>
-                    </h:commandLink>
+                            class="fa fa-dollar"></i>Add To Fiat Currency<f:param name="id"
+                                                                                  value="#{clientView.getClient().getClientId()}"/>
+                    </h:outputLink>
                 </sec:authorize>
                 <h:outputLink style="margin-right: 30px ; font-size: 25px"
                               value="#{request.contextPath}/logout">Logout<i
@@ -69,7 +75,15 @@
                 </h:outputLink>
             </h:form>
             <br></br>
+            <sec:authorize access="hasAuthority('CLIENT')">
 
+                <h2 class="text-center">Current Balance: <span class="badge badge-danger"><i
+                        class="fa fa-bitcoin"></i>#{clientView.getClient().getBitcoin_bal()}</span></h2>
+
+                <h2 class="text-center">Current Fiat Currency: <span
+                        class="badge badge-warning">$#{clientView.getClient().getFiat_currency()}</span></h2>
+
+            </sec:authorize>
             <h2 class="text-center">Current Bitcoin Price <span class="badge badge-success"
                                                                 id="bitcoin-data">
             </span><h:link onclick="parseJson();"
@@ -81,11 +95,11 @@
 
 
                 <h2>Client List:</h2>
-                <h:dataTable styleClass="table table-striped" var="client"
+                <h:dataTable styleClass="table table-striped text-center" var="client"
                              value="#{traderView.getAllClientsByTrader()}">
 
                     <h:column>
-                        <f:facet name="header">ID</f:facet>#{client.id}
+                        <f:facet name="header">ID</f:facet>#{client.clientId}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Name</f:facet>#{client.firstname}
@@ -105,7 +119,8 @@
                         <f:facet name="header">Email</f:facet>#{client.email}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Address</f:facet>#{client.street}, #{client.zipcode}, #{client.city}, #{client.state}
+                        <f:facet
+                                name="header">Address</f:facet>#{client.street}, #{client.zipcode}, #{client.city}, #{client.state}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Level</f:facet>#{client.level}
@@ -114,22 +129,28 @@
                         <f:facet name="header">Balance</f:facet>#{client.bitcoin_bal} <i class="fa fa-bitcoin"></i>
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Fiat Currency</f:facet>#{client.fiat_currency} <i class="fa fa-dollar"></i>
+                        <f:facet name="header">Fiat Currency</f:facet>#{client.fiat_currency} <i
+                            class="fa fa-dollar"></i>
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">Actions</f:facet>
-                        <h:commandButton type="button" style="margin: 1px 1px 1px 1px"
-                                         styleClass="btn btn-primary btn-sm"
-                                         value="Buy"/>
-                        <h:commandButton type="button" style="margin: 1px 1px 1px 1px"
-                                         styleClass="btn btn-success btn-sm"
-                                         value="Sell"/>
-                        <h:commandButton type="button" style="margin: 1px 1px 1px 1px" styleClass="btn btn-danger btn-sm"
-                                         value="History"/>
-                        <h:commandButton type="button" style="margin: 1px 1px 1px 1px"
-                                         styleClass="btn btn-warning btn-sm"
-                                         value="Transactions"/>
+                        <h:button style="margin: 1px 1px 1px 1px"
+                                  styleClass="btn btn-primary btn-sm"
+                                  value="Buy" outcome="buy"><f:param name="id"
+                                                                     value="#{client.clientId}"/></h:button>
+                        <h:button type="button" style="margin: 1px 1px 1px 1px"
+                                  styleClass="btn btn-success btn-sm"
+                                  value="Sell" outcome="sell"><f:param name="id"
+                                                                       value="#{client.clientId}"/></h:button>
+                        <h:button type="button" style="margin: 1px 1px 1px 1px"
+                                  styleClass="btn btn-danger btn-sm"
+                                  value="History" outcome="history"><f:param name="id"
+                                                                             value="#{client.clientId}"/></h:button>
+                        <h:button type="button" style="margin: 1px 1px 1px 1px"
+                                  styleClass="btn btn-warning btn-sm"
+                                  value="Transactions" outcome="transactions"><f:param name="id"
+                                                                                       value="#{client.clientId}"/></h:button>
                     </h:column>
                 </h:dataTable>
 
@@ -137,41 +158,36 @@
 
             <sec:authorize access="hasAuthority('CLIENT')">
 
-            <h2>Transactions:</h2>
-            <h:dataTable styleClass="table table-striped" var="history">
+                <h2>Transactions:</h2>
+                <h:dataTable styleClass="table table-striped text-center" var="transaction"
+                             value="#{transactionView.getAllTransactionByClientId(clientView.getClient().getClientId())}">
 
-                <h:column>
-                    <f:facet name="header">Transaction ID</f:facet>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Transaction ID</f:facet>#{transaction.id}
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Transaction Type</f:facet>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Transaction Type</f:facet>
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Amount</f:facet>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Amount</f:facet>#{transaction.amount}
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Date</f:facet>
+                    <h:column>
+                        <f:facet name="header">Date</f:facet>#{transaction.date} #{transaction.time}
 
-                </h:column>
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Commission Type</f:facet>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Commission Type</f:facet>#{transaction.commission_type}
+                    </h:column>
 
-                <h:column>
-                    <f:facet name="header">Commission Amount</f:facet>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Actions</f:facet>
-                    <h:commandButton type="button" style="margin: 1px 1px 1px 1px"
-                                     styleClass="btn btn-danger btn-sm"
-                                     value="Cancel Transaction"/>
-                </h:column>
+                    <h:column>
+                        <f:facet name="header">Commission Amount</f:facet>#{transaction.commission_amount}
+                    </h:column>
 
-            </h:dataTable>
+                </h:dataTable>
             </sec:authorize>
         </div>
     </div>

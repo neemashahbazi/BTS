@@ -32,9 +32,7 @@ public class ClientService {
     TraderService traderService;
 
 
-
-
-    public List<Client> getAllClient(){
+    public List<Client> getAllClient() {
 
 
         return (List<Client>) clientRepository.findAll();
@@ -64,7 +62,7 @@ public class ClientService {
 
                 // If lastName is specified in filter, add contains (lile)
                 // filter to where clause with ignore case
-                if (filter.getLastname() != null  && !filter.getLastname().isEmpty()) {
+                if (filter.getLastname() != null && !filter.getLastname().isEmpty()) {
                     predicates.add(cb.like(cb.lower(root.get("lastname")),
                             "%" + filter.getLastname().toLowerCase() + "%"));
                 }
@@ -109,23 +107,21 @@ public class ClientService {
                     predicates.add(cb.equal(root.get("bitcoin_bal"), filter.getBitcoin_bal()));
                 }
 
-                if (filter.getLevel() != null  && !filter.getLevel().isEmpty()) {
+                if (filter.getLevel() != null && !filter.getLevel().isEmpty()) {
                     predicates.add(cb.equal(root.get("level"), filter.getLevel()));
                 }
 
                 predicates.add(cb.equal(root.get("trader"), traderService.getTrader()));
 
 
-
-
                 return cb.and(predicates.toArray(new Predicate[0]));
             }
         });
-        return  clients;
+        return clients;
     }
 
 
-    public Client getClientByUsername(){
+    public Client getClientByUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
 
@@ -134,13 +130,13 @@ public class ClientService {
 
     }
 
-    public List<Client> getClientByID(Integer id){
+    public List<Client> getClientByID(Integer id) {
         List<Client> client = clientRepository.findByClientId(id);
         return client;
 
     }
 
-    public Client getClient(){
+    public Client getClient() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
 

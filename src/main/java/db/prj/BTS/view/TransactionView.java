@@ -6,11 +6,23 @@ import db.prj.BTS.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Named
 public class TransactionView {
+
+    private String commissionType;
+    private Integer amount;
+    private Integer clientId;
+    private Integer transactionId;
+
+    public Integer getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Integer transactionId) {
+        this.transactionId = transactionId;
+    }
 
     @Autowired
     ClientService clientService;
@@ -18,29 +30,65 @@ public class TransactionView {
     @Autowired
     TransactionService transactionService;
 
-
-    public BuyTransaction buyBitcoin(Integer amount, String commission_type, Integer client_id){
-        Client client= clientService.getClientByID(client_id).get(0);
-       return transactionService.buyBitcoin(amount,commission_type,client);
+    public String getCommissionType() {
+        return commissionType;
     }
 
-    public SellTransaction sellBitcoin(Integer amount, String commission_type, Integer client_id){
-        Client client= clientService.getClientByID(client_id).get(0);
-        return transactionService.sellBitcoin(amount,commission_type,client);
+    public void setCommissionType(String commissionType) {
+        this.commissionType = commissionType;
     }
 
-    public PaymentTransaction pay(Integer amount, Integer client_id){
-        Client client= clientService.getClientByID(client_id).get(0);
-        return transactionService.pay(amount,client,client.getTrader());
+    public Integer getClientId() {
+        return clientId;
     }
 
-    public void cancle(Integer trx_id){
-         transactionService.cancle(trx_id);
+    public void setClientId(Integer clientId) {
+        this.clientId = clientId;
     }
 
-    public List<Transaction> getAllTransactionByClientId(Integer client_id){
-        Client client= clientService.getClientByID(client_id).get(0);
-        return  client.getTransactionList();
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public String buyBitcoin() {
+
+        Client client = clientService.getClientByID(clientId).get(0);
+        transactionService.buyBitcoin(amount, commissionType, client);
+        return "transaction_success.xhtml?faces-redirect=true";
+    }
+
+    public String sellBitcoin() {
+        Client client = clientService.getClientByID(clientId).get(0);
+        transactionService.sellBitcoin(amount, commissionType, client);
+        return "transaction_success.xhtml?faces-redirect=true";
+    }
+
+    public String pay() {
+        Client client = clientService.getClientByID(clientId).get(0);
+        transactionService.pay(amount, client, client.getTrader());
+        return "transaction_success.xhtml?faces-redirect=true";
+
+    }
+
+    public String cancel(Integer transactionId) {
+        transactionService.cancel(transactionId);
+        return "transaction_cancel.xhtml?faces-redirect=true";
+
+    }
+
+    public List<Transaction> getAllTransactionByClientId() {
+        Client client = clientService.getClientByID(clientId).get(0);
+        return client.getTransactionList();
+
+    }
+
+    public List<Transaction> getAllTransactionByClientId(Integer clientId) {
+        Client client = clientService.getClientByID(clientId).get(0);
+        return client.getTransactionList();
 
     }
 }

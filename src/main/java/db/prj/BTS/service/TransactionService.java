@@ -157,6 +157,7 @@ public class TransactionService {
         PaymentTransaction result = paymentTransactionRepository.save(paymentTransaction);
         if (result != null)
             client.setFiat_currency(client.getFiat_currency() + amount);
+            clientRepository.save(client);
 
         return result;
 

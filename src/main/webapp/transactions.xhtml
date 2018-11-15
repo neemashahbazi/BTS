@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+    <title>BTS:</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
+<body>
+<f:metadata><f:viewParam name="id" value="#{transactionView.clientId}"></f:viewParam></f:metadata>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Transactions:</h2></div>
+        <div class="col-md-12 text-center">
+            <h:form>
+                <h:dataTable styleClass="table table-striped" var="transaction"
+                             value="#{transactionView.getAllTransactionByClientId()}">
+
+                    <h:column>
+                        <f:facet name="header">Transaction ID</f:facet>#{transaction.id}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Transaction Type</f:facet>#{transaction.trxType}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Amount</f:facet>#{transaction.amount}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Date</f:facet>#{transaction.date} #{transaction.time}
+
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Commission Type</f:facet>#{transaction.commission_type}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">Commission Amount</f:facet>#{transaction.commission_amount}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Action</f:facet><h:commandButton style="margin: 1px 1px 1px 1px"
+                                                                                styleClass="btn btn-danger btn-sm"
+                                                                                action="#{transactionView.cancel(transaction.id)}"
+                                                                                value="Cancel"></h:commandButton>
+                    </h:column>
+                </h:dataTable>
+                <h:button style="margin: 5px 0px 10px 0px" outcome="home"
+                          styleClass="btn btn-danger" value="Return Home"/></h:form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

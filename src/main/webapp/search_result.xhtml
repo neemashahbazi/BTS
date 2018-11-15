@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+    <title>BTS:</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Search Results:</h2>
+            <h:dataTable styleClass="table table-striped text-center" var="client" value="#{clientView.clients}">
+
+
+                <h:column>
+                    <f:facet name="header">ID</f:facet>#{client.clientId}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Name</f:facet>#{client.firstname}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Last Name</f:facet>#{client.lastname}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Cell Phone Number</f:facet>#{client.cellphone_num}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Phone Number</f:facet>#{client.phone_num}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Email</f:facet>#{client.email}
+                </h:column>
+                <h:column>
+                    <f:facet
+                            name="header">Address</f:facet>#{client.street}, #{client.zipcode}, #{client.city}, #{client.state}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Level</f:facet>#{client.level}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Balance</f:facet>#{client.bitcoin_bal} <i class="fa fa-bitcoin"></i>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fiat Currency</f:facet>#{client.fiat_currency} <i
+                        class="fa fa-dollar"></i>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Actions</f:facet>
+                    <h:button style="margin: 1px 1px 1px 1px"
+                              styleClass="btn btn-primary btn-sm"
+                              value="Buy" outcome="buy"><f:param name="id"
+                                                                 value="#{client.clientId}"/></h:button>
+                    <h:button type="button" style="margin: 1px 1px 1px 1px"
+                              styleClass="btn btn-success btn-sm"
+                              value="Sell" outcome="sell"><f:param name="id"
+                                                                   value="#{client.clientId}"/></h:button>
+                    <h:button type="button" style="margin: 1px 1px 1px 1px"
+                              styleClass="btn btn-danger btn-sm"
+                              value="History" outcome="history"><f:param name="id"
+                                                                         value="#{client.clientId}"/></h:button>
+                    <h:button type="button" style="margin: 1px 1px 1px 1px"
+                              styleClass="btn btn-warning btn-sm"
+                              value="Transactions" outcome="transactions"><f:param name="id"
+                                                                                   value="#{client.clientId}"/></h:button>
+                </h:column>
+            </h:dataTable>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

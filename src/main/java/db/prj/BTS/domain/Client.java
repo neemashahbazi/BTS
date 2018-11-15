@@ -32,6 +32,9 @@ public class Client extends User {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Transaction> transactionList;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<AuditTransaction> auditTransactionList;
+
     public Integer getClientId() {
         return clientId;
     }
@@ -134,6 +137,15 @@ public class Client extends User {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+
+    public List<AuditTransaction> getAuditTransactionList() {
+        return auditTransactionList;
+    }
+
+    public void setAuditTransactionList(List<AuditTransaction> auditTransactionList) {
+        this.auditTransactionList = auditTransactionList;
     }
 
     @OneToOne

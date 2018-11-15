@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:sec="http://www.springframework.org/security/tags">
+<h:head>
+    <title>BTS:</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+    <h:outputStylesheet library="js" name="popper.min.js"/>
+    <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
+</h:head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-centered border">
+            <h2>Search:</h2>
+            <h6>Fill any of the following fields to search for a client.</h6>
+            <h:form>
+                <table class="form-group">
+
+                    <tr>
+                        <td>Client First Name:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.firstname}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Client Last Name:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.lastname}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Cell Phone Number:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.cellphone_num}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Phone Number:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.phone_num}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.email}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Street:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.street}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Zip Code:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.zipcode}"/></td>
+                    </tr>
+                    <tr>
+                        <td>City:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.city}"/></td>
+                    </tr>
+                    <tr>
+                        <td>State:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.state}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Bitcoin Balance:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.bitcoin_bal}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Fiat Currency:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.fiat_currency}"/></td>
+                    </tr>
+                    <tr>
+                        <td>Level:</td>
+                        <td><h:inputText styleClass="form-control" value="#{clientView.level}"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                                                                 styleClass="btn btn-primary" value="Search"
+                                                                 action="#{clientView.searchClients()}"
+                        /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td class="text-center"><h:button style="margin: 5px 0px 10px 0px" outcome="home"
+                                                          styleClass="btn btn-danger" value="Return Home"/></td>
+                    </tr>
+                </table>
+            </h:form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

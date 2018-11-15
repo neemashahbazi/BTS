@@ -1,6 +1,7 @@
 package db.prj.BTS.view;
 
 import db.prj.BTS.domain.*;
+import db.prj.BTS.exception.InsufficientBAlanceException;
 import db.prj.BTS.service.ClientService;
 import db.prj.BTS.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.List;
 public class TransactionView {
 
     private String commissionType;
-    private Integer amount;
+    private Double amount;
     private Integer clientId;
     private Integer transactionId;
 
@@ -46,19 +47,24 @@ public class TransactionView {
         this.clientId = clientId;
     }
 
-    public Integer getAmount() {
+
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
     public String buyBitcoin() {
+        try {
 
-        Client client = clientService.getClientByID(clientId).get(0);
-        transactionService.buyBitcoin(amount, commissionType, client);
-        return "transaction_success.xhtml?faces-redirect=true";
+            Client client = clientService.getClientByID(clientId).get(0);
+            transactionService.buyBitcoin(amount, commissionType, client);
+            return "transaction_success.xhtml?faces-redirect=true";
+        }catch (InsufficientBAlanceException exp){
+            return null;
+        }
     }
 
     public String sellBitcoin() {

@@ -35,6 +35,9 @@ public class Transaction {
     @JoinColumn(name = "TRADER_USERNAME")
     private Trader trader;
 
+    @Transient
+    private  String trxType;
+
 
     public Transaction() {
 
@@ -58,6 +61,14 @@ public class Transaction {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTrxType() {
+        return trxType;
+    }
+
+    public void setTrxType(String trxType) {
+        this.trxType = trxType;
     }
 
     public Date getDate() {

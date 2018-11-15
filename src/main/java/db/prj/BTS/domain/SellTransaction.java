@@ -10,5 +10,6 @@ public class SellTransaction extends Transaction {
 
 
     public SellTransaction() {
+        setTrxType("SELL");
     }
 }

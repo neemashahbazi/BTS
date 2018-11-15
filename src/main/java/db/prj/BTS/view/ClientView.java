@@ -154,8 +154,8 @@ public class ClientView {
         filter.setState(state);
         filter.setZipcode(zipcode);
         try {
-            filter.setBitcoin_bal(Integer.parseInt(bitcoin_bal));
-            filter.setFiat_currency(Integer.parseInt(fiat_currency));
+            filter.setBitcoin_bal(Double.parseDouble(bitcoin_bal));
+            filter.setFiat_currency(Double.parseDouble(fiat_currency));
         } catch (Exception e) {
         }
         filter.setCellphone_num(cellphone_num);

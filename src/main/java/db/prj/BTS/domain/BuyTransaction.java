@@ -9,6 +9,7 @@ import java.util.Date;
 public class BuyTransaction extends Transaction {
 
     public BuyTransaction() {
+        setTrxType("BUY");
     }
 
 

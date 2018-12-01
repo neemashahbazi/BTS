@@ -188,7 +188,7 @@ public class TransactionService {
 
     }
 
-    public List<Integer> getReport(){
+    public List<Integer> getReport(Date date){
         List<Integer> list = new ArrayList<Integer>();
         list.add(10);
         list.add(20);

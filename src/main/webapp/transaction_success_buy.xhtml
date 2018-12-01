@@ -22,15 +22,16 @@
     <div class="row">
         <div class="col-md-4 col-centered border text-center" style="margin-top: 100px">
             <h1>Success!</h1>
-            <h4>Transaction Canceled Successfully!</h4>
-            <h6>Transaction # Was Canceled...</h6>
+            <h4>Transaction Done Successfully!</h4>
+            <h6>Amount: #{clientView.round(transactionView.getBuyTransaction().amount)} Bitcoins bought...</h6>
+            <h6>Commission amount: #{clientView.round(transactionView.getBuyTransaction().commission_amount)} #{transactionView.getBuyTransaction().commission_type}</h6>
+
 
             <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
             <br></br>
             <h:button style="margin: 5px 0px 10px 0px" outcome="home"
                              styleClass="btn btn-primary" value="Return Home"/>
         </div>
-
     </div>
 </div>
 

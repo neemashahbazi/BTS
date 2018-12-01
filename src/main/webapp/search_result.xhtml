@@ -21,7 +21,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <h2>Search Results:</h2>
+            <h2>Search Results for: #{clientView.showKeyword()}</h2>
             <h:dataTable styleClass="table table-striped text-center" var="client" value="#{clientView.clients}">
 
 
@@ -53,10 +53,10 @@
                     <f:facet name="header">Level</f:facet>#{client.level}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Balance</f:facet>#{client.bitcoin_bal} <i class="fa fa-bitcoin"></i>
+                    <f:facet name="header">Balance</f:facet>#{clientView.round(client.bitcoin_bal)} <i class="fa fa-bitcoin"></i>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Fiat Currency</f:facet>#{client.fiat_currency} <i
+                    <f:facet name="header">Fiat Currency</f:facet>#{clientView.round(client.fiat_currency)} <i
                         class="fa fa-dollar"></i>
                 </h:column>
 
@@ -80,7 +80,9 @@
                                                                                    value="#{client.clientId}"/></h:button>
                 </h:column>
             </h:dataTable>
-
+            <div class="col-md-12 text-center">
+                <h:button style="margin: 5px 0px 10px 0px" outcome="search"
+                          styleClass="btn btn-danger" value="Return To Search"/></div>
         </div>
 
     </div>

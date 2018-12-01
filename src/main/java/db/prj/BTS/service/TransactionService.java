@@ -5,16 +5,14 @@ import db.prj.BTS.exception.InsufficientBAlanceException;
 import db.prj.BTS.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 import java.util.Date;
 
 @Service
 public class TransactionService {
 
 
-    public static final String FROM_BALANACE = "balance";
-    public static final String FROM_FIAT_CURRENCY = "currency";
+    public static final String FROM_BALANACE = "fromBalance";
+    public static final String FROM_FIAT_CURRENCY = "fromCurrency";
 
     @Autowired
     private BuyTransactionRepository buyTransactionRepository;

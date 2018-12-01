@@ -5,6 +5,8 @@ import db.prj.BTS.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Named
@@ -175,4 +177,54 @@ public class ClientView {
         return clientService.getClient();
     }
 
+    public String round(double val) {
+        DecimalFormat df = new DecimalFormat("#.####");
+        return df.format(val);
+    }
+
+    public String round(String val) {
+        DecimalFormat df = new DecimalFormat("#.####");
+        return df.format(Double.parseDouble(val));
+    }
+
+    public String showKeyword() {
+        String val = "";
+        if (firstname != null && !firstname.isEmpty()) {
+            val = val + firstname;
+        }
+        if (lastname != null && !lastname.isEmpty()) {
+            val = val +"+"+ lastname;
+        }
+        if (cellphone_num != null && !cellphone_num.isEmpty()) {
+            val = val + cellphone_num;
+        }
+        if (phone_num != null && !phone_num.isEmpty()) {
+            val = val +"+"+ phone_num;
+        }
+        if (email != null && !email.isEmpty()) {
+            val = val +"+"+ email;
+        }
+        if (street != null && !street.isEmpty()) {
+            val = val +"+"+ street;
+        }
+        if (state != null && !state.isEmpty()) {
+            val = val +"+"+ state;
+        }
+        if (zipcode != null && !zipcode.isEmpty()) {
+            val = val +"+"+ zipcode;
+        }
+        if (city != null && !city.isEmpty()) {
+            val = val +"+"+ city;
+        }
+        if (bitcoin_bal != null && !bitcoin_bal.isEmpty()) {
+            val = val +"+"+ bitcoin_bal;
+        }
+        if (fiat_currency != null && !fiat_currency.isEmpty()) {
+            val = val +"+"+ fiat_currency;
+        }
+        if (level != null && !level.isEmpty()) {
+            val = val +"+"+ level;
+        }
+        return val;
+    }
 }

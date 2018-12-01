@@ -11,6 +11,6 @@ import java.util.Date;
 public class PaymentTransaction extends Transaction {
 
     public PaymentTransaction() {
-setTrxType("Pay");
+setTrxType("PAY");
     }
 }

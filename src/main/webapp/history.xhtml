@@ -39,7 +39,7 @@
                     <f:facet name="header">Client Name</f:facet>#{history.client.getFirstname()} #{history.client.getLastname()}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Amount</f:facet>#{history.amount}
+                    <f:facet name="header">Amount</f:facet>#{clientView.round(history.amount)}
                 </h:column>
 
                 <h:column>
@@ -52,7 +52,7 @@
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">Commission Amount</f:facet>#{history.commission_amount}
+                    <f:facet name="header">Commission Amount</f:facet>#{clientView.round(history.commission_amount)}
                 </h:column>
             </h:dataTable>
             <h:button style="margin: 5px 0px 10px 0px" outcome="home"

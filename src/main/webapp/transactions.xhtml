@@ -37,7 +37,7 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Amount</f:facet>#{transaction.amount}
+                        <f:facet name="header">Amount</f:facet>#{clientView.round(transaction.amount)}
                     </h:column>
 
                     <h:column>
@@ -50,7 +50,7 @@
                     </h:column>
 
                     <h:column>
-                        <f:facet name="header">Commission Amount</f:facet>#{transaction.commission_amount}
+                        <f:facet name="header">Commission Amount</f:facet>#{empty transaction.commission_amount ? "" : clientView.round(transaction.commission_amount)}
                     </h:column>
                     <h:column>
                         <f:facet name="header">Action</f:facet><h:commandButton style="margin: 1px 1px 1px 1px"

@@ -20,10 +20,10 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4 col-centered border text-center">
+        <div class="col-md-4 col-centered border text-center" style="margin-top: 100px">
             <h1>Success!</h1>
             <h4>Transaction Done Successfully!</h4>
-            <h6>N Bitcoins Bought/Sold...</h6>
+            <h6>#{clientView.round(transactionView.getPaymentTransaction().amount)} added to currency...</h6>
 
             <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
             <br></br>

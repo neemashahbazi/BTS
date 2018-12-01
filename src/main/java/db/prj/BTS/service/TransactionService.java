@@ -3,9 +3,13 @@ package db.prj.BTS.service;
 import db.prj.BTS.domain.*;
 import db.prj.BTS.exception.InsufficientBAlanceException;
 import db.prj.BTS.repository.*;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Date;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -31,7 +35,7 @@ public class TransactionService {
 
     public BuyTransaction buyBitcoin(Double amount, String commission_type, Client client) throws InsufficientBAlanceException {
 
-
+//     System.out.println("TRX count is "+ getMonthlyTransactionAmount());
 
         Date now = new Date();
 
@@ -184,6 +188,40 @@ public class TransactionService {
 
     }
 
+    public List<Integer> getReport(){
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        return  list;
+    }
+
+
+    public int getDailyTransactionAmount(){
+//        Date now =new Date();
+
+       return   transactionRepository.getDailyTransactionAmount(DateUtils.truncate(new Date(), Calendar.DATE));
+    }
+
+
+    public int getMonthlyTransactionAmount(){
+        Date now =new Date();
+
+
+        Calendar gc = new GregorianCalendar();
+        gc.set(Calendar.MONTH, now.getMonth());
+        gc.set(Calendar.DAY_OF_MONTH, 1);
+        Date monthStart = gc.getTime();
+        gc.add(Calendar.MONTH, 1);
+        gc.add(Calendar.DAY_OF_MONTH, -1);
+        Date monthEnd = gc.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+
+        System.out.println("Calculated month start date : " + format.format(monthStart));
+        System.out.println("Calculated month end date : " + format.format(monthEnd));
+
+        return   transactionRepository.getMonthlyTransactionAmount(monthStart,monthEnd);
+    }
 
     public float getUpdatedBitCoinPrice() {
 

@@ -33,6 +33,8 @@ public class TransactionService {
 
     public BuyTransaction buyBitcoin(Double amount, String commission_type, Client client) throws InsufficientBAlanceException {
 
+
+
         Date now = new Date();
 
         double rate = getUpdatedBitCoinPrice();
@@ -164,6 +166,32 @@ public class TransactionService {
     }
 
     public void cancel(Integer trx_id) {
+       Transaction trx= transactionRepository.findById(trx_id).get();
+       if(trx.getCommission_type() == FROM_FIAT_CURRENCY){
+           if(trx.getTrxType() == "BUY") {
+               trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() + trx.getFiat_amount() + trx.getCommission_amount());
+               trx.getClient().setBitcoin_bal( trx.getClient().getBitcoin_bal() - trx.getAmount());
+
+           } else if(trx.getTrxType() == "SELL") {
+               trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() - trx.getFiat_amount() + trx.getCommission_amount());
+               trx.getClient().setBitcoin_bal( trx.getClient().getBitcoin_bal() + trx.getAmount());
+           }
+              else
+                  trx.getClient().setFiat_currency( trx.getClient().getFiat_currency() - trx.getAmount());
+
+       } else{
+           if(trx.getTrxType() == "BUY") {
+               trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() + trx.getFiat_amount() );
+               trx.getClient().setBitcoin_bal( trx.getClient().getBitcoin_bal() - trx.getAmount() + trx.getCommission_amount());
+
+           } else if(trx.getTrxType() == "SELL") {
+               trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() - trx.getFiat_amount() );
+               trx.getClient().setBitcoin_bal( trx.getClient().getBitcoin_bal() + trx.getAmount() + trx.getCommission_amount());
+           }
+           else
+               trx.getClient().setFiat_currency( trx.getClient().getFiat_currency() - trx.getAmount());
+        }
+
         transactionRepository.deleteById(trx_id);
 
     }

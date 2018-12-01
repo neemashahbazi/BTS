@@ -2,6 +2,7 @@ package db.prj.BTS.view;
 
 import db.prj.BTS.domain.Client;
 import db.prj.BTS.service.ClientService;
+import db.prj.BTS.service.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
@@ -15,6 +16,9 @@ public class ClientView {
 
     @Autowired
     ClientService clientService;
+
+    @Autowired
+    LevelService levelService;
     private String firstname;
     private String lastname;
     private String phone_num;
@@ -162,7 +166,8 @@ public class ClientView {
         }
         filter.setCellphone_num(cellphone_num);
         filter.setPhone_num(phone_num);
-        filter.setLevel(level);
+
+        filter.setLevel(levelService.getByName(level));
         filter.setEmail(email);
 
         clients = clientService.retrieveClient(filter);

@@ -158,8 +158,7 @@ public class TransactionService {
 
     }
 
-    public void cancel(Integer trx_id) {
-
+    public String cancel(Integer trx_id) {
        Transaction trx= transactionRepository.findById(trx_id).get();
        if(trx.getCommission_type() == FROM_FIAT_CURRENCY){
            if(trx.getTrxType() == "BUY") {
@@ -187,7 +186,9 @@ public class TransactionService {
         }
 
         transactionRepository.deleteById(trx_id);
-       clientRepository.save(trx.getClient());
+        clientRepository.save(trx.getClient());
+        return "home.xhtml?faces-redirect=true";
+
 
 
 

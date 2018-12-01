@@ -5,6 +5,8 @@ import db.prj.BTS.repository.LevelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LevelService {
 
@@ -12,7 +14,11 @@ public class LevelService {
     LevelRepository levelRepository;
 
     public Level getByName(String name){
-        return levelRepository.findByName(name).get(0);
+      List<Level> level = levelRepository.findByName(name);
+      if (level.isEmpty())
+          return  null;
+      else  return level.get(0);
+
     }
 
 }

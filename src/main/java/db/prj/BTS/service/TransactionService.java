@@ -3,9 +3,14 @@ package db.prj.BTS.service;
 import db.prj.BTS.domain.*;
 import db.prj.BTS.exception.InsufficientBAlanceException;
 import db.prj.BTS.repository.*;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.Date;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -32,8 +37,8 @@ public class TransactionService {
     public BuyTransaction buyBitcoin(Double amount, String commission_type, Client client) throws InsufficientBAlanceException {
 
 
-
         Date now = new Date();
+
 
         double rate = getUpdatedBitCoinPrice();
         double fiat_amount = rate * amount;
@@ -184,6 +189,55 @@ public class TransactionService {
         return "home.xhtml?faces-redirect=true";
     }
 
+    public List<Integer> getReport(Date date){
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(getDailyTransactionAmount(date));
+        list.add(getWeeklyTransactionAmount(date));
+        list.add(getMonthlyTransactionAmount(date));
+        return  list;
+    }
+
+
+    public int getDailyTransactionAmount(Date date){
+
+     return transactionRepository.getDailyTransaction(DateUtils.truncate(date, Calendar.DATE));
+    }
+
+
+    public int getMonthlyTransactionAmount(Date date){
+
+        Calendar gc = new GregorianCalendar();
+        gc.set(Calendar.MONTH, date.getMonth());
+        gc.set(Calendar.DAY_OF_MONTH, 1);
+        Date monthStart = gc.getTime();
+        gc.add(Calendar.MONTH, 1);
+        gc.add(Calendar.DAY_OF_MONTH, -1);
+        Date monthEnd = gc.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+
+        return   transactionRepository.getTransactionBetweenRange(DateUtils.truncate(monthStart, Calendar.DATE),DateUtils.truncate(monthEnd, Calendar.DATE));
+    }
+
+    public int getWeeklyTransactionAmount(Date date){
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        // Set the calendar to monday of the current week
+        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+
+
+        Date weekStart= c.getTime();
+        for (int i = 0; i <6; i++) {
+            c.add(Calendar.DATE, 1);
+        }
+        Date weekEnd= c.getTime();
+        weekEnd.setHours(23);
+        weekEnd.setMinutes(59);
+        weekEnd.setSeconds(59);
+
+        return   transactionRepository.getTransactionBetweenRange(DateUtils.truncate(weekStart, Calendar.DATE),weekEnd);
+    }
 
     public float getUpdatedBitCoinPrice() {
 

@@ -24,6 +24,7 @@ public class Client extends User {
     private Double fiat_currency;
     private Double bitcoin_bal;
 
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "level")
     private Level level;
@@ -150,8 +151,12 @@ public class Client extends User {
         this.auditTransactionList = auditTransactionList;
     }
 
-    @OneToOne
-    @JoinColumn(name = "TRADER_USERNAME")
+    public String getLevelName() {
+        return  this.level.getName();
+    }
+
+
+
     public Trader getTrader() {
         return trader;
     }

@@ -23,7 +23,10 @@ public class Client extends User {
     private String zipcode;
     private Double fiat_currency;
     private Double bitcoin_bal;
-    private String level;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "level")
+    private Level level;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "TRADER_USERNAME")
@@ -131,14 +134,13 @@ public class Client extends User {
         this.bitcoin_bal = bitcoin_bal;
     }
 
-    public String getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
-
 
     public List<AuditTransaction> getAuditTransactionList() {
         return auditTransactionList;

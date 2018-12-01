@@ -28,8 +28,7 @@ public class ClientService {
 
     public static final String GOLD_LEVEL = "GOLD";
     public static final String SILVER_LEVEL = "SILVER";
-    public static final double GOLD_PERCENTAGE = 0.1f;
-    public static final double SILVER_PERCENTAGE = 0.3f;
+
 
     @Autowired
     ClientRepository clientRepository;
@@ -113,7 +112,7 @@ public class ClientService {
                     predicates.add(cb.equal(root.get("bitcoin_bal"), filter.getBitcoin_bal()));
                 }
 
-                if (filter.getLevel() != null && !filter.getLevel().isEmpty()) {
+                if (filter.getLevel() != null) {
                     predicates.add(cb.equal(root.get("level"), filter.getLevel()));
                 }
 

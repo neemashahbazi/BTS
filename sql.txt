@@ -6,15 +6,15 @@ mysql> grant all on db_bts.* to 'root'@'localhost'; -- Gives all the privileges 
 
 CREATE  TABLE db_bts.u_users (
   username VARCHAR(20) NOT NULL ,
-  password VARCHAR(20) NOT NULL ,
+  password VARCHAR(100) NOT NULL ,
   enabled TINYINT NOT NULL DEFAULT 1 ,
   PRIMARY KEY (username));
 
   Drop Table db_bts.u_users;
 
-  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','trader', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','$2a$04$Oo0LB/rtiBUb161fFYJo0ObSn7Bn/5y2RX/.vYIdi3uM4u0BBmTw6', true);
     INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader2','trader', true);
-  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client','client', true);
+  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client','$2a$04$4WEWaIgugxe2PWY0yo9Wv.Fz4IaAgkI8hz7ne2.0y2ZRGh7Bj4iWu', true);
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('client2','client', true);
   INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('manager','manager', true);
 
@@ -51,6 +51,21 @@ CREATE TABLE db_bts.u_traders (
 INSERT INTO db_bts.u_traders(username) VALUES ('trader');
 INSERT INTO db_bts.u_traders(username) VALUES ('trader2');
 
+
+  CREATE TABLE db_bts.u_level (
+       id int(11) NOT NULL AUTO_INCREMENT,
+       name VARCHAR(20) NOT NULL,
+       percentage  DOUBLE,
+       PRIMARY KEY (id));
+
+                INSERT INTO db_bts.u_level(name, percentage) VALUES ("GOLD", 0.3);
+                INSERT INTO db_bts.u_level(name, percentage) VALUES ("SILVER", 0.5);
+
+         Drop Table db_bts.u_level;
+
+
+
+
 CREATE TABLE db_bts.u_clients (
      id int(11) NOT NULL AUTO_INCREMENT,
      username VARCHAR(20) NOT NULL,
@@ -59,7 +74,7 @@ CREATE TABLE db_bts.u_clients (
      phone_num VARCHAR(10) ,
 	 cellphone_num VARCHAR(10) ,
 	 email VARCHAR(30),
-	 level VARCHAR(30) DEFAULT 'SILVER"',
+	 level int DEFAULT 2,
 	 bitcoin_bal DOUBLE DEFAULT 0,
 	 fiat_currency DOUBLE DEFAULT 0,
 	 trader_username  VARCHAR(20) NOT NULL,
@@ -69,14 +84,19 @@ CREATE TABLE db_bts.u_clients (
 	 zipcode CHAR(5),
      PRIMARY KEY (id),
       CONSTRAINT fk_client_user FOREIGN KEY (username) REFERENCES db_bts.u_users (username),
-     CONSTRAINT fk_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username));
+     CONSTRAINT fk_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username),
+     CONSTRAINT fk_level FOREIGN KEY (level) REFERENCES db_bts.u_level (id));
 
      INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
-     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com','SILVER',12000001,120000000,'trader','19251 preston rd','dallas','texas','75252');
+     VALUES ('client','Pooneh','mousavi','95467234','234234','p.mousavi@gmail.com',2,12000001,120000000,'trader','19251 preston rd','dallas','texas','75252');
           INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
           VALUES ('client2','Nima','shahbazi','95467234','234234','p.mousavi@gmail.com','SILVER',120,100,'trader2','19251 preston rd','dallas','texas','75252');
 
   Drop Table db_bts.u_clients;
+
+
+
+
 
 
 

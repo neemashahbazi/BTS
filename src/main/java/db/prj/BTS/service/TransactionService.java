@@ -41,10 +41,8 @@ public class TransactionService {
         double fiat_amount = rate * amount;
         double commission_amount = 0;
         if (FROM_BALANACE.equals(commission_type)) {
-            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
-                commission_amount = amount * ClientService.GOLD_PERCENTAGE;
-            else
-                commission_amount = amount * ClientService.SILVER_PERCENTAGE;
+                commission_amount = amount * client.getLevel().getPercentage();
+
             if (client.getFiat_currency() < fiat_amount)
                 throw new InsufficientBAlanceException("Fiat Currency is insufficient");
 
@@ -54,10 +52,8 @@ public class TransactionService {
             client.setFiat_currency(client.getFiat_currency() - fiat_amount);
             client.setBitcoin_bal((client.getBitcoin_bal() - commission_amount + amount));
         } else if (FROM_FIAT_CURRENCY.equals(commission_type)) {
-            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
-                commission_amount = fiat_amount * ClientService.GOLD_PERCENTAGE;
-            else
-                commission_amount = fiat_amount * ClientService.SILVER_PERCENTAGE;
+                commission_amount = fiat_amount * client.getLevel().getPercentage();
+
             if (client.getFiat_currency() < fiat_amount + commission_amount)
                 throw new InsufficientBAlanceException("Fiat Currency is insufficient");
 
@@ -96,10 +92,7 @@ public class TransactionService {
         double fiat_amount = rate * amount;
         double commission_amount=0 ;
         if (FROM_BALANACE.equals(commission_type)) {
-            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
-                commission_amount = amount * ClientService.GOLD_PERCENTAGE;
-            else
-                commission_amount = amount * ClientService.SILVER_PERCENTAGE;
+                commission_amount = amount * client.getLevel().getPercentage();
 
             if (client.getBitcoin_bal() < commission_amount + amount)
                 throw new InsufficientBAlanceException("Balance is insufficient");
@@ -107,10 +100,7 @@ public class TransactionService {
             client.setFiat_currency(client.getFiat_currency() + fiat_amount);
             client.setBitcoin_bal((client.getBitcoin_bal() - commission_amount - amount));
         } else if (FROM_FIAT_CURRENCY.equals(commission_type)) {
-            if (ClientService.GOLD_LEVEL.equals(client.getLevel()))
-                commission_amount = fiat_amount * ClientService.GOLD_PERCENTAGE;
-            else
-                commission_amount = fiat_amount * ClientService.SILVER_PERCENTAGE;
+                commission_amount = fiat_amount * client.getLevel().getPercentage();
             if (client.getFiat_currency() < commission_amount)
                 throw new InsufficientBAlanceException("Fiat Currency is insufficient");
             if (client.getBitcoin_bal() < amount)

@@ -85,6 +85,7 @@ public class TransactionView {
         try {
             Client client = clientService.getClientByID(clientId).get(0);
             buyTransaction = transactionService.buyBitcoin(amount, commissionType, client);
+            clear();
             return "transaction_success_buy.xhtml?faces-redirect=true";
         } catch (InsufficientBAlanceException exp) {
             return "insufficient_amount.xhtml?faces-redirect=true";
@@ -96,6 +97,7 @@ public class TransactionView {
         try {
             Client client = clientService.getClientByID(clientId).get(0);
             sellTransaction = transactionService.sellBitcoin(amount, commissionType, client);
+            clear();
             return "transaction_success_sell.xhtml?faces-redirect=true";
         } catch (InsufficientBAlanceException exp) {
             return "insufficient_amount.xhtml?faces-redirect=true";
@@ -106,6 +108,7 @@ public class TransactionView {
     public String pay() {
         Client client = clientService.getClientByID(clientId).get(0);
         paymentTransaction = transactionService.pay(amount, client, client.getTrader());
+        clear();
         return "transaction_success_pay.xhtml?faces-redirect=true";
 
     }
@@ -119,6 +122,11 @@ public class TransactionView {
 
         }
 
+    }
+
+    private void clear(){
+        setAmount(null);
+        setCommissionType(null);
     }
 
     public List<Transaction> getAllTransactionByClientId() {

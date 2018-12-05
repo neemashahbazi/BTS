@@ -155,6 +155,8 @@ public class TransactionService {
         sellTransaction.setCommission_type(commission_type);
         sellTransaction.setCommission_amount(commission_amount);
         sellTransaction.setClient(client);
+        sellTransaction.setFiat_amount(fiat_amount);
+        sellTransaction.setTrader(client.getTrader());
 
         SellTransaction result = sellTransactionRepository.save(sellTransaction);
         ;
@@ -202,7 +204,6 @@ public class TransactionService {
     /*Delete transaction from transaction table and update client's fiat currency and balance accordingly*/
     @Transactional
     public String cancel(Integer trx_id) {
-
         Transaction trx = transactionRepository.findById(trx_id).get();
         logger.info("Start Deleting transaction with trx_id: {} bt trader with username {} .", trx.getId(), trx.getTrader().getUsername());
         if (trx.getCommission_type() == FROM_FIAT_CURRENCY) {

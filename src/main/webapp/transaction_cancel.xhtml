@@ -18,17 +18,20 @@
     <h:outputStylesheet library="js" name="jquery-3.3.1.slim.min.js"/>
 </h:head>
 <body>
+<f:metadata><f:viewParam name="id" value="#{transactionView.transactionId}"></f:viewParam></f:metadata>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4 col-centered border text-center" style="margin-top: 100px">
-            <h1>Success!</h1>
-            <h4>Transaction Canceled Successfully!</h4>
-            <h6>Transaction # Was Canceled...</h6>
+            <h1>Attention!</h1>
+            <h4>Are you sure you want to cancel Transaction #{transactionView.getTransactionId()}?</h4>
 
-            <i style="font-size: 100px ; color: #34ce57" class="fa fa-check-circle"></i>
+            <i style="font-size: 100px ; color: #ff4c29" class="fa fa-question-circle"></i>
             <br></br>
+            <h:form>
+            <h:commandButton style="margin: 5px 0px 10px 0px" action="#{transactionView.cancel(transactionView.getTransactionId())}"
+                             styleClass="btn btn-primary" value="Proceed to Cancel"/></h:form>
             <h:button style="margin: 5px 0px 10px 0px" outcome="home"
-                             styleClass="btn btn-primary" value="Return Home"/>
+                      styleClass="btn btn-danger" value="Return Home"/>
         </div>
 
     </div>

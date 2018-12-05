@@ -7,6 +7,8 @@ import db.prj.BTS.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Named
@@ -30,7 +32,6 @@ public class TransactionView {
     public void setTransactionId(Integer transactionId) {
         this.transactionId = transactionId;
     }
-
 
     public String getCommissionType() {
         return commissionType;
@@ -82,7 +83,6 @@ public class TransactionView {
 
     public String buyBitcoin() {
         try {
-
             Client client = clientService.getClientByID(clientId).get(0);
             buyTransaction = transactionService.buyBitcoin(amount, commissionType, client);
             return "transaction_success_buy.xhtml?faces-redirect=true";
@@ -111,8 +111,14 @@ public class TransactionView {
     }
 
     public String cancel(Integer transactionId) {
-        transactionService.cancel(transactionId);
-        return "transaction_cancel.xhtml?faces-redirect=true";
+        try {
+            transactionService.cancel(transactionId);
+            return "home.xhtml?faces-redirect=true";
+        } catch (Exception e){
+            return "home.xhtml?faces-redirect=true";
+
+        }
+
     }
 
     public List<Transaction> getAllTransactionByClientId() {
@@ -132,5 +138,4 @@ public class TransactionView {
         return client.getAuditTransactionList();
 
     }
-
 }

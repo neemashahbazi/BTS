@@ -200,14 +200,10 @@
                 <div class="col-md-4 col-centered" style="margin-top: 50px">
                     <table>
                         <tr>
-                            <td>Date:</td>
-                            <td><h:inputText styleClass="form-control" value=""/></td>
-                            <td>MM/DD/YYYY</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="text-center"><h:commandButton style="margin: 5px 0px 10px 0px"
-                                                                     styleClass="btn btn-primary" value="Show"/></td>
+                            <h:form>
+                                <p:calendar widgetVar="calendarVar" value="#{chartView.date}"><p:ajax event="dateSelect" listener="#{chartView.dateSelectedAction}"></p:ajax></p:calendar>
+                                <br/>
+                            </h:form>
                         </tr>
                     </table>
                 </div>

@@ -34,9 +34,11 @@ public class Client extends User {
     private Trader trader;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OrderBy("id desc ")
     private List<Transaction> transactionList;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OrderBy("id desc ")
     private List<AuditTransaction> auditTransactionList;
 
     public Integer getClientId() {

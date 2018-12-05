@@ -4,6 +4,8 @@ import db.prj.BTS.domain.Client;
 
 import db.prj.BTS.repository.ClientRepository;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -22,13 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+/*This class handle all business related to client service*/
 @Service
 public class ClientService {
 
-    public static final String GOLD_LEVEL = "GOLD";
-    public static final String SILVER_LEVEL = "SILVER";
-
+    private static final Logger logger = LogManager.getLogger(ClientService.class);
 
     @Autowired
     ClientRepository clientRepository;
@@ -43,8 +43,10 @@ public class ClientService {
         return (List<Client>) clientRepository.findAll();
     }
 
-
+    /*Create query for making select query on client table based on the input filter.
+    * Trader id criteria is added because each trader should only search his/her own clients*/
     public List<Client> retrieveClient(Client filter) {
+        logger.debug("Start to search client based on the filter");
 
         List<Client> clients = clientRepository.findAll(new Specification<Client>() {
 
@@ -122,6 +124,7 @@ public class ClientService {
                 return cb.and(predicates.toArray(new Predicate[0]));
             }
         });
+        logger.debug("End to search client based on the filter");
         return clients;
     }
 
@@ -142,6 +145,7 @@ public class ClientService {
 
     }
 
+    /*return client who is currently login*/
     public Client getClient() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();

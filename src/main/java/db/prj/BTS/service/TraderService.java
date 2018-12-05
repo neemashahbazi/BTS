@@ -18,6 +18,7 @@ public class TraderService {
     @Autowired
     TraderRepository traderRepository;
 
+    /*return all clients related to the trader who is currently login*/
     public List<Client> getClientList() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();
@@ -27,6 +28,7 @@ public class TraderService {
 
     }
 
+    /*return trader who is currently login*/
     public Trader getTrader() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetail = (UserDetails) auth.getPrincipal();

@@ -1,22 +1,22 @@
 package db.prj.BTS.domain;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "u_traders")
 public class Trader extends User {
     @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
+    @OrderBy("id ")
     private List<Client> clientList;
 
     @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
+    @OrderBy("id desc ")
     private List<AuditTransaction> auditTransactionList;
 
     @OneToMany(mappedBy = "trader", cascade = CascadeType.ALL)
+    @OrderBy("id desc ")
     private List<Transaction> transactionList;
 
 

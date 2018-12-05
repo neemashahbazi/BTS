@@ -110,7 +110,7 @@ CREATE TABLE trx_transactions (
      trx_type varchar(30) NOT NULL,
      fiat_amount DOUBLE,
      commission_amount DOUBLE,
-     commission_type varchar(11),
+     commission_type varchar(20),
      client_id  int(11) NOT NULL,
      trader_username  VARCHAR(20),
      PRIMARY KEY (id),
@@ -127,12 +127,14 @@ CREATE TABLE trx_transactions (
           trx_type varchar(30) NOT NULL,
           fiat_amount DOUBLE,
           commission_amount DOUBLE,
-          commission_type varchar(11),
+          commission_type varchar(20),
           client_id  int(11) NOT NULL,
           deleted_by  VARCHAR(20),
           PRIMARY KEY (id),
           CONSTRAINT fk_trx_audit_client FOREIGN KEY (client_id) REFERENCES db_bts.u_clients (id),
           CONSTRAINT fk_trx_deletedtby FOREIGN KEY (deleted_by) REFERENCES db_bts.u_traders (username));
+
+          Drop Table trx_audit;
 
 DELIMITER //
 CREATE TRIGGER transaction_after_delete

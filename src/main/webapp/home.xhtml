@@ -199,13 +199,30 @@
             <sec:authorize access="hasAuthority('MANAGER')">
                 <div class="col-md-4 col-centered" style="margin-top: 50px">
                     <table>
+                        <h:form>
                         <tr>
-                            <h:form>
-                                <p:calendar widgetVar="calendarVar" value="#{chartView.date}"><p:ajax event="dateSelect" listener="#{chartView.dateSelectedAction}"></p:ajax></p:calendar>
-                                <br/>
-                            </h:form>
+                                <td>Day:(DD)</td>
+                                <td><h:inputText styleClass="form-control" value="#{chartView.day}"/></td>
                         </tr>
-                    </table>
+                        <tr>
+                            <td>Month:(MM)</td>
+                            <td><h:inputText styleClass="form-control" value="#{chartView.month}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Year:(YYYY)</td>
+                            <td><h:inputText styleClass="form-control" value="#{chartView.year}"/></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td class="text-center"><h:commandButton style="margin: 5px 0px 0px 0px"
+                                                                     styleClass="btn btn-primary" value="Get Report"
+                                                                     action="#{chartView.searchDate()}"
+                            /></td>
+                        </tr>
+                    </h:form>
+
+                </table>
                 </div>
                 <div class="col-md-8 col-centered" style="margin-top: 50px">
                 <p:chart type="bar" model="#{chartView.barModel}" style="height:300px"/>

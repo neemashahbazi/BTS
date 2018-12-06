@@ -1,0 +1,18 @@
+trader 123456
+trader1 tr@1234567
+trader2 t123&456
+trader3 7654321$
+trader4 zxccxz123321
+
+
+client 1234567
+client1 tr@1234567
+client2 t123&456
+client3 7654321$
+client4 zxccxz123321
+client5 tr@1234567
+client6 t123&456
+client7 7654321$
+client8 zxccxz123321
+
+manager mng@12345678

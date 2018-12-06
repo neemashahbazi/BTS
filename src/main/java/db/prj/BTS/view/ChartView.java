@@ -5,6 +5,9 @@ import org.primefaces.model.chart.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.Destroyed;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.text.ParseException;
@@ -12,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Named
+@ViewScoped
 public class ChartView implements Serializable {
     private BarChartModel barModel;
     @Autowired
@@ -46,11 +50,24 @@ public class ChartView implements Serializable {
     private String month;
     private String year;
 
+
+    @PreDestroy
+    public void destroy(){
+        date=new Date();
+        System.out.println("Destroyed!");
+
+    }
     public void searchDate() throws ParseException {
         date= new SimpleDateFormat( "yyyyMMdd" ).parse( year+month+day );
         setDate((date));
         System.out.println("Date Selected Is ::"+date);
         createBarModels();
+    }
+
+    private void clear(){
+        day=null;
+        month=null;
+        year=null;
     }
 
     @PostConstruct

@@ -10,7 +10,6 @@ CREATE  TABLE db_bts.u_users (
   enabled TINYINT NOT NULL DEFAULT 1 ,
   PRIMARY KEY (username));
 
-  Drop Table db_bts.u_users;
 
  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader','$2a$04$Oo0LB/rtiBUb161fFYJo0ObSn7Bn/5y2RX/.vYIdi3uM4u0BBmTw6', true);
  INSERT INTO db_bts.u_users(username,password,enabled) VALUES ('trader1','$2a$04$31CqIRa7vc0jtg9dFW9cXORIs/aaY97JDzl7xVb57BpEOgUmJiAVe', true);
@@ -39,7 +38,6 @@ CREATE  TABLE db_bts.u_users (
     KEY fk_username_idx (username),
     CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
 
-      Drop Table db_bts.u_roles;
 
 
 
@@ -67,9 +65,6 @@ CREATE TABLE db_bts.u_traders (
    KEY fk_username_user (username),
   CONSTRAINT fk_username_user FOREIGN KEY (username) REFERENCES db_bts.u_users (username));
 
-    Drop Table db_bts.u_traders;
-
-
 INSERT INTO db_bts.u_traders(username) VALUES ('trader');
 INSERT INTO db_bts.u_traders(username) VALUES ('trader1');
 INSERT INTO db_bts.u_traders(username) VALUES ('trader2');
@@ -84,12 +79,8 @@ INSERT INTO db_bts.u_traders(username) VALUES ('trader4');
        percentage  DOUBLE,
        PRIMARY KEY (id));
 
-                INSERT INTO db_bts.u_level(name, percentage) VALUES ("GOLD", 0.3);
-                INSERT INTO db_bts.u_level(name, percentage) VALUES ("SILVER", 0.5);
-
-         Drop Table db_bts.u_level;
-
-
+  INSERT INTO db_bts.u_level(name, percentage) VALUES ("GOLD", 0.3);
+  INSERT INTO db_bts.u_level(name, percentage) VALUES ("SILVER", 0.5);
 
 
 CREATE TABLE db_bts.u_clients (
@@ -139,13 +130,7 @@ CREATE TABLE db_bts.u_clients (
      VALUES ('client7','John','Richardson','34534','345345','j.richardson@gmail.com',2,40,5000,'trader4','3456 Franklyn rd','dallas','texas','76454');
 
      INSERT INTO db_bts.u_clients (username,firstname,lastname,phone_num,cellphone_num,email,level,bitcoin_bal,fiat_currency,trader_username,street,city,state,zipcode)
-      VALUES ('client8','Mary','Richardson','3453453','345345','m.richardson@gmail.com',1,50,13000,'trader4','3456 Franklyn rd','dallas','texas','76454');
-
-  Drop Table db_bts.u_clients;
-
-
-
-
+     VALUES ('client8','Mary','Richardson','3453453','345345','m.richardson@gmail.com',1,50,13000,'trader4','3456 Franklyn rd','dallas','texas','76454');
 
 
 
@@ -166,8 +151,6 @@ CREATE TABLE trx_transactions (
      CONSTRAINT fk_trx_client FOREIGN KEY (client_id) REFERENCES db_bts.u_clients (id),
      CONSTRAINT fk_trx_trader FOREIGN KEY (trader_username) REFERENCES db_bts.u_traders (username));
 
-     DROP TABLE trx_transactions;
-
 
      CREATE TABLE trx_audit (
           id int(11) NOT NULL AUTO_INCREMENT,
@@ -183,7 +166,6 @@ CREATE TABLE trx_transactions (
           CONSTRAINT fk_trx_audit_client FOREIGN KEY (client_id) REFERENCES db_bts.u_clients (id),
           CONSTRAINT fk_trx_deletedtby FOREIGN KEY (deleted_by) REFERENCES db_bts.u_traders (username));
 
-          Drop Table trx_audit;
 
 DELIMITER //
 CREATE TRIGGER transaction_after_delete
@@ -218,5 +200,26 @@ BEGIN
 END; //
 
 DELIMITER ;
+
+
+  Drop Table db_bts.u_users;
+
+  Drop Table db_bts.u_roles;
+
+  Drop Table db_bts.u_traders;
+
+  Drop Table db_bts.u_level;
+
+  Drop Table db_bts.u_clients;
+
+  Drop Table trx_transactions;
+
+  Drop Table trx_audit;
+
+
+
+
+
+
 
 

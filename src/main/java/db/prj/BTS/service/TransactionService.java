@@ -34,6 +34,7 @@ public class TransactionService {
     public static final String FROM_BALANACE = "fromBalance";
     public static final String FROM_FIAT_CURRENCY = "fromCurrency";
 
+
     @Autowired
     private BuyTransactionRepository buyTransactionRepository;
 
@@ -205,23 +206,23 @@ public class TransactionService {
     public String cancel(Integer trx_id) {
         Transaction trx = transactionRepository.findById(trx_id).get();
         logger.info("Start Deleting transaction with trx_id: {} bt trader with username {} .", trx.getId(), trx.getTrader().getUsername());
-        if (trx.getCommission_type() == FROM_FIAT_CURRENCY) {
-            if (trx.getTrxType() == "BUY") {
+        if (trx.getCommission_type().equals(FROM_FIAT_CURRENCY)) {
+            if (trx.getTrxType().equals("BUY")) {
                 trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() + trx.getFiat_amount() + trx.getCommission_amount());
                 trx.getClient().setBitcoin_bal(trx.getClient().getBitcoin_bal() - trx.getAmount());
 
-            } else if (trx.getTrxType() == "SELL") {
+            } else if (trx.getTrxType().equals("SELL")) {
                 trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() - trx.getFiat_amount() + trx.getCommission_amount());
                 trx.getClient().setBitcoin_bal(trx.getClient().getBitcoin_bal() + trx.getAmount());
             } else
                 trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() - trx.getAmount());
 
         } else {
-            if (trx.getTrxType() == "BUY") {
+            if (trx.getTrxType().equals("BUY")) {
                 trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() + trx.getFiat_amount());
                 trx.getClient().setBitcoin_bal(trx.getClient().getBitcoin_bal() - trx.getAmount() + trx.getCommission_amount());
 
-            } else if (trx.getTrxType() == "SELL") {
+            } else if (trx.getTrxType().equals("SELL")) {
                 trx.getClient().setFiat_currency(trx.getClient().getFiat_currency() - trx.getFiat_amount());
                 trx.getClient().setBitcoin_bal(trx.getClient().getBitcoin_bal() + trx.getAmount() + trx.getCommission_amount());
             } else
@@ -258,13 +259,32 @@ public class TransactionService {
     /*return total amount of transactions on week of the specific  date*/
     private int getMonthlyTransactionAmount(Date date) {
 
-        Calendar gc = new GregorianCalendar();
-        gc.set(Calendar.MONTH, date.getMonth());
-        gc.set(Calendar.DAY_OF_MONTH, 1);
-        Date monthStart = gc.getTime();
-        gc.add(Calendar.MONTH, 1);
-        gc.add(Calendar.DAY_OF_MONTH, -1);
-        Date monthEnd = gc.getTime();
+//        Calendar gc = new GregorianCalendar();
+//        gc.set(Calendar.YEAR, date.getYear());
+//        gc.set(Calendar.MONTH, date.getMonth());
+//        gc.set(Calendar.DAY_OF_MONTH, 1);
+//        Date monthStart = gc.getTime();
+//        int lastDate = gc.getActualMaximum(Calendar.DATE);
+//
+//        gc.set(Calendar.DATE, lastDate);
+//
+////        gc.add(Calendar.MONTH, date.getMonth());
+////        gc.add(Calendar.DAY_OF_MONTH,30);
+//        Date monthEnd = gc.getTime();
+
+
+        Calendar c = Calendar.getInstance();// this takes current date
+        c.setTime(date);
+        c.set(Calendar.DAY_OF_MONTH, 1);
+        Date monthStart = c.getTime();
+
+        Calendar c2 = Calendar.getInstance();
+        // this takes current date
+        c2.setTime(date);
+        c2.set(Calendar.DAY_OF_MONTH, 30);
+        Date monthEnd = c2.getTime();
+
+
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 
         return transactionRepository.getTransactionBetweenRange(DateUtils.truncate(monthStart, Calendar.DATE), DateUtils.truncate(monthEnd, Calendar.DATE));

@@ -168,7 +168,7 @@ public class ClientService {
 
 
     /*Job to run every first day of month to udate client level if needed*/
-    @Scheduled(cron = "0 0 1 * *?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void scheduleTaskWithCronExpression() {
         logger.info("Cron Task :: Execution Time - {}", new Date());
         Date date=new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000L);
